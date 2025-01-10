@@ -16,4 +16,13 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class ExampleSubsystemConst {
+    //You can add variables in here so later in the code numbers are referenced as, for example:
+    // Constants.ExampleSubsystem.leftMotorCAN;
+
+    public static final int leftMotorCAN = 1;
+    public static final int righttMotorCAN = 2;
+    public static final int encoderDIO = 0;
+  }
 }
