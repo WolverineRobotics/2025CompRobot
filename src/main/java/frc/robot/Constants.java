@@ -16,4 +16,26 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class RobotConstants {
+
+    // Distance from center to front of robot or to one of the sides
+    public static final double kDistanceToWheel = 12.5;
+
+    // Constants for the PID controllers for drive and steer 
+    public static final double kPDrive = 0.25; 
+    public static final double kIDrive = 0.01; 
+    public static final double kDDrive = 0.01;
+
+    public static final double kPSteer = 0.25; 
+    public static final double kISteer = 0.01; 
+    public static final double kDSteer = 0.01; 
+
+    // Dimensional Analyis to convert Rotor spins to degrees gear ratio: 6.75:1 
+    public static final double kSteerPositionConversionFactor = (1 / 6.75) * (1 / 360);
+    public static final double kSteerVelocityConversionFactor = ((1 / 6.75) * (1 / 360)) / (60 * 1);
+    public static final double kDrivePositionConversionFactor = (1 / 6.75) * (1 / 360);
+    public static final double kDriveVelocityConversionFactor = ((1 / 6.75) * (1 / 360)) / (60 * 1);
+    
+  }
 }
