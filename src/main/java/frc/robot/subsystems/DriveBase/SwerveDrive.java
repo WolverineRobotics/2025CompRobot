@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RobotConstants;
 
@@ -72,6 +73,29 @@ public class SwerveDrive extends SubsystemBase {
     @Override 
     public void periodic() {
         odometry.update( new Rotation2d(Units.degreesToRadians(gyro.getYaw().getValueAsDouble())), getCurrentSwerveModulePositions());
+
+        //Gyro Read Out 
+        SmartDashboard.putNumber("Pitch",  gyro.getPitch().getValueAsDouble());
+        SmartDashboard.putNumber("Yaw",  gyro.getYaw().getValueAsDouble());
+        SmartDashboard.putNumber("Roll", gyro.getRoll().getValueAsDouble());
+
+    
+
+        //Encoder Read out
+        SmartDashboard.putNumber("Module 1 Drive", swerveModules[0].getDriveVelocity());
+        SmartDashboard.putNumber("Module 1 Steer", swerveModules[0].getSteerVelocity());
+
+        SmartDashboard.putNumber("Module 2 Drive", swerveModules[1].getDriveVelocity());
+        SmartDashboard.putNumber("Module 2 Steer", swerveModules[1].getSteerVelocity());
+
+        SmartDashboard.putNumber("Module 3 Drive", swerveModules[2].getDriveVelocity());
+        SmartDashboard.putNumber("Module 3 Steer", swerveModules[2].getSteerVelocity());
+
+        SmartDashboard.putNumber("Module 4 Drive", swerveModules[3].getDriveVelocity());
+        SmartDashboard.putNumber("Module 4 Steer", swerveModules[3].getSteerVelocity());
+
+
+
     }
     
     

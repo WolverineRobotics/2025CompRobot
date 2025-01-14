@@ -56,6 +56,8 @@ public class SwerveModule {
         //drive motor config 
         driveMotorConfig.inverted(false);
         driveMotor.configure(driveMotorConfig, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+
            
     }
 
@@ -72,5 +74,17 @@ public class SwerveModule {
         steerPidController.setSetpoint(state.angle.getDegrees());
         drivePidController.setSetpoint(state.speedMetersPerSecond);
     }
+
+    public double getDriveVelocity() {
+        return driveEncoder.getVelocity();
+
+    }
+
+    public double getSteerVelocity() {
+        return steerEncoder.getVelocity();
+    }
+
+
+    
 
 }
