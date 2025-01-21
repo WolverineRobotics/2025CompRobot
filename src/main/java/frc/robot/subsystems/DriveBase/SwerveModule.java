@@ -6,14 +6,14 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
+import com.revrobotics.spark.SparkLowLevel;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import frc.robot.Constants.DriveConstants;
 
 
@@ -22,7 +22,7 @@ public class SwerveModule {
 
     private final SparkMax steerMotor; 
     private final SparkMax driveMotor; 
-    private final AnalogEncoder absoluteEncoder; 
+    //private final AnalogEncoder absoluteEncoder; 
     private final RelativeEncoder driveEncoder; 
     private final RelativeEncoder steerEncoder; 
     private final PIDController drivePidController;
@@ -34,12 +34,12 @@ public class SwerveModule {
 
 
 
-    public SwerveModule(int driveMotorCANID, int steerMotorCANID, int absoluteEncoderChannel) {
+    public SwerveModule(int driveMotorCANID, int steerMotorCANID /*int absoluteEncoderChannel*/) {
 
         //Declaring the motors for drive and steer
-        driveMotor = new SparkMax(driveMotorCANID, MotorType.kBrushless);
-        steerMotor = new SparkMax(steerMotorCANID, MotorType.kBrushless);
-        absoluteEncoder = new AnalogEncoder(absoluteEncoderChannel); 
+        driveMotor = new SparkMax(driveMotorCANID, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushless);
+        steerMotor = new SparkMax(steerMotorCANID, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushless);
+        //absoluteEncoder = new AnalogEncoder(absoluteEncoderChannel); 
 
 
         //Getting the encoders from the motors 

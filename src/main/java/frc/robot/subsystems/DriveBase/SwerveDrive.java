@@ -20,7 +20,11 @@ public class SwerveDrive extends SubsystemBase {
     private final SwerveDriveKinematics kinematics; 
     private final Pigeon2 gyro;
     private final SwerveDriveOdometry odometry;  
-    private final SwerveModule[] swerveModules = {new SwerveModule(0, 0, 0), new SwerveModule(0, 0, 0), new SwerveModule(0, 0, 0), new SwerveModule(0, 0, 0)};; 
+    private final SwerveModule[] swerveModules = {
+        new SwerveModule(15, 11), 
+        new SwerveModule(22,6), 
+        new SwerveModule(20, 16), 
+        new SwerveModule(12, 23)};; 
 
 
     public SwerveDrive() {
@@ -31,7 +35,7 @@ public class SwerveDrive extends SubsystemBase {
             new Translation2d(Units.inchesToMeters(DriveConstants.kDistanceToWheel * -1 ), Units.inchesToMeters(DriveConstants.kDistanceToWheel * -1))
         );
 
-        gyro = new Pigeon2(0);
+        gyro = new Pigeon2(0, "Default Name");
 
 
         odometry = new SwerveDriveOdometry(
