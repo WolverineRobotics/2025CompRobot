@@ -17,7 +17,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public static class RobotConstants {
+  public static class DriveConstants {
 
     // Distance from center to front of robot or to one of the sides
     public static final double kDistanceToWheel = 12.5;

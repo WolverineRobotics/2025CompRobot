@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -13,7 +14,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.AnalogEncoder;
-import frc.robot.Constants.RobotConstants;
+import frc.robot.Constants.DriveConstants;
 
 
 public class SwerveModule {
@@ -35,17 +36,22 @@ public class SwerveModule {
 
     public SwerveModule(int driveMotorCANID, int steerMotorCANID, int absoluteEncoderChannel) {
 
-        driveMotor = new SparkMax(driveMotorCANID, null);
-        steerMotor = new SparkMax(steerMotorCANID, null);
+        //Declaring the motors for drive and steer
+        driveMotor = new SparkMax(driveMotorCANID, MotorType.kBrushless);
+        steerMotor = new SparkMax(steerMotorCANID, MotorType.kBrushless);
         absoluteEncoder = new AnalogEncoder(absoluteEncoderChannel); 
 
 
+        //Getting the encoders from the motors 
         driveEncoder = driveMotor.getEncoder();
         steerEncoder = steerMotor.getEncoder();
 
-        drivePidController = new PIDController(RobotConstants.kPDrive, RobotConstants.kIDrive, RobotConstants.kDDrive); 
-        steerPidController = new PIDController(RobotConstants.kPSteer, RobotConstants.kISteer, RobotConstants.kDSteer);
 
+        //Creating the PID controllers 
+        drivePidController = new PIDController(DriveConstants.kPDrive, DriveConstants.kIDrive, DriveConstants.kDDrive); 
+        steerPidController = new PIDController(DriveConstants.kPSteer, DriveConstants.kISteer, DriveConstants.kDSteer);
+
+        // Creating the config objects for the drive and steer 
         driveMotorConfig = new SparkMaxConfig();
         steerMotorConfig = new SparkMaxConfig();
         
@@ -71,8 +77,11 @@ public class SwerveModule {
 
     public void setState(SwerveModuleState state) {
 
-        steerPidController.setSetpoint(state.angle.getDegrees());
-        drivePidController.setSetpoint(state.speedMetersPerSecond);
+        //drivePidController.setSetpoint(state.speedMetersPerSecond);
+
+        driveMotor.set(drivePidController.calculate(driveEncoder.getPosition(), state.speedMetersPerSecond));
+
+        steerMotor.set(steerPidController.calculate(steerEncoder.getPosition(), state.angle.getDegrees()));
     }
 
     public double getDriveVelocity() {

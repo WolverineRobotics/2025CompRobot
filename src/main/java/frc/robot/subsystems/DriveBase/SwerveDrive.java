@@ -13,7 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.RobotConstants;
+import frc.robot.Constants.DriveConstants;
 
 public class SwerveDrive extends SubsystemBase {
 
@@ -25,10 +25,10 @@ public class SwerveDrive extends SubsystemBase {
 
     public SwerveDrive() {
         kinematics = new SwerveDriveKinematics(
-            new Translation2d(Units.inchesToMeters(RobotConstants.kDistanceToWheel), Units.inchesToMeters(RobotConstants.kDistanceToWheel)),
-            new Translation2d(Units.inchesToMeters(RobotConstants.kDistanceToWheel), Units.inchesToMeters(RobotConstants.kDistanceToWheel * -1)),
-            new Translation2d(Units.inchesToMeters(RobotConstants.kDistanceToWheel * -1), Units.inchesToMeters(RobotConstants.kDistanceToWheel)),
-            new Translation2d(Units.inchesToMeters(RobotConstants.kDistanceToWheel * -1 ), Units.inchesToMeters(RobotConstants.kDistanceToWheel * -1))
+            new Translation2d(Units.inchesToMeters(DriveConstants.kDistanceToWheel), Units.inchesToMeters(DriveConstants.kDistanceToWheel)),
+            new Translation2d(Units.inchesToMeters(DriveConstants.kDistanceToWheel), Units.inchesToMeters(DriveConstants.kDistanceToWheel * -1)),
+            new Translation2d(Units.inchesToMeters(DriveConstants.kDistanceToWheel * -1), Units.inchesToMeters(DriveConstants.kDistanceToWheel)),
+            new Translation2d(Units.inchesToMeters(DriveConstants.kDistanceToWheel * -1 ), Units.inchesToMeters(DriveConstants.kDistanceToWheel * -1))
         );
 
         gyro = new Pigeon2(0);
@@ -96,6 +96,15 @@ public class SwerveDrive extends SubsystemBase {
 
 
 
+    }
+
+    public Rotation2d[] getSwerveModuleAngles() {
+        return new Rotation2d[] {
+            swerveModules[0].getAngle(),
+            swerveModules[1].getAngle(),
+            swerveModules[2].getAngle(),
+            swerveModules[3].getAngle()
+        };
     }
     
     
