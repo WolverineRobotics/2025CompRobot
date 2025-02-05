@@ -3,19 +3,23 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.spark.SparkMax;
 
-public class ExampleSubsystem extends SubsystemBase {
+public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+  public final SparkMax leftMotor, rightMotor;
+  public ElevatorSubsystem() {
+    leftMotor = new SparkMax(0, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushless);
+    rightMotor = new SparkMax(0, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushless);
+  }
 
   /**
    * Example command factory method.
    *
    * @return a command
+   * 
    */
   public Command exampleMethodCommand() {
     // Inline construction of command goes here.
@@ -25,6 +29,12 @@ public class ExampleSubsystem extends SubsystemBase {
           /* one-time action goes here */
         });
   }
+
+  public void testFunction() {
+    leftMotor.set(0.5);
+    rightMotor.set(0.5);
+   }
+
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
