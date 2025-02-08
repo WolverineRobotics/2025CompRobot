@@ -5,9 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.Input;
+import frc.robot.Input;
 import frc.robot.commands.TeleopDriveCommand;
 
 /**
@@ -77,6 +78,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    m_robotContainer.m_DriveSubsystem.zero();
   }
 
   /** This function is called periodically during operator control. */
@@ -85,6 +88,9 @@ public class Robot extends TimedRobot {
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
     }
+    SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
+    SmartDashboard.putNumber("Vertical", Input.getVertical());
+    SmartDashboard.putNumber("Rotation", Input.getRotation());
   }
 
   @Override
