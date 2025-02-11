@@ -74,6 +74,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_DriveSubsystem.getAutoCommand("Test Auto");
+    return m_DriveSubsystem.getAutoCommand("Baseline Auto");
   }
 }
