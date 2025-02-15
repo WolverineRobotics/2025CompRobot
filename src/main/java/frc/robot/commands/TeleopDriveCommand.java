@@ -10,6 +10,8 @@ public class TeleopDriveCommand extends Command {
 
     public TeleopDriveCommand(DriveSubsystem driveBase) {
         swerveBase = driveBase;
+        addRequirements(swerveBase);
+        
     }
 
     @Override 

@@ -9,6 +9,7 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -36,41 +37,42 @@ public class DriveSubsystem extends SubsystemBase {
     
 
     public DriveSubsystem(File directory, double maximumSpeed) throws IOException {
+        //Creating the swerveDrive from the configuration files 
         swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
-        posePublisher = NetworkTableInstance.getDefault().getStructTopic("Robot Pose", Pose2d.struct).publish();
+        
+        //Setting up path planner 
         setupPathPlanner();
 
           
     }
  
     public void drive(double translationX, double translationY, double headingX) {
+            // Scaling the inputs to the correct speeds
             ChassisSpeeds targetSpeeds = swerveDrive.swerveController.getTargetSpeeds(translationX, translationY, headingX, swerveDrive.getOdometryHeading().getRadians(), swerveDrive.getMaximumChassisVelocity());
             swerveDrive.driveFieldOriented(targetSpeeds);   
-            posePublisher.set(swerveDrive.getPose());        
+               
         }
     
-    public void driveToPoint(Pose2d point) {
-        Pose2d botPose = swerveDrive.getPose();
-        double xDistance = botPose.getX() - point.getX();
-        double yDistance = botPose.getY() - point.getY();
-        double netDistance = Math.sqrt((xDistance * xDistance) + (yDistance * yDistance));
-        double time = netDistance / DriveSubsystemConstants.kAlignVelocity;
-        ChassisSpeeds speeds = new ChassisSpeeds((xDistance / time), (yDistance / time), 0);
-        swerveDrive.driveFieldOriented(speeds);   
+    public Command driveToPoint(Pose2d point) {
+        // Creating the contraints for the path to follow
+        PathConstraints constraints = new PathConstraints(1, 1,Units.degreesToRadians(180), Units.degreesToRadians(180));
+
+        //Using path planner magic to generate a Command to drive to point
+        return AutoBuilder.pathfindToPose(
+            point,
+            constraints,
+            edu.wpi.first.units.Units.MetersPerSecond.of(0));
     }
 
     @Override 
     public void periodic() {
-        posePublisher.set(swerveDrive.getPose());
-        SmartDashboard.putNumber("Front Left Angle Encoder", swerveDrive.getModules()[0].getPosition().angle.getDegrees());
-        SmartDashboard.putNumber("Front Right Angle Encoder", swerveDrive.getModules()[1].getPosition().angle.getDegrees());
-        SmartDashboard.putNumber("Back Left Angle Encoder", swerveDrive.getModules()[2].getPosition().angle.getDegrees());
-        SmartDashboard.putNumber("Back Right Angle Encoder", swerveDrive.getModules()[3].getPosition().angle.getDegrees());
+        
+        SmartDashboard.putNumber("Front Left Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
+        SmartDashboard.putNumber("Front Right Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
+        SmartDashboard.putNumber("Back Left Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
+        SmartDashboard.putNumber("Back Right Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
 
-        SmartDashboard.putNumber("Front Left Drive Encoder", swerveDrive.getModules()[0].getDriveMotor().getVelocity());
-        SmartDashboard.putNumber("Front Right Drive Encoder", swerveDrive.getModules()[1].getDriveMotor().getVelocity());
-        SmartDashboard.putNumber("Back Left Drive Encoder",  swerveDrive.getModules()[2].getDriveMotor().getVelocity());
-        SmartDashboard.putNumber("Back Right Drive Encoder", swerveDrive.getModules()[3].getDriveMotor().getVelocity());
+        
 
     }
 
@@ -78,6 +80,8 @@ public class DriveSubsystem extends SubsystemBase {
         swerveDrive.zeroGyro();
     }   
     
+    
+    //IDK I copied and pasted this method
     public void setupPathPlanner()
     {
         // Load the RobotConfig from the GUI settings. You should probably

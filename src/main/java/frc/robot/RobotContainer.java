@@ -12,7 +12,11 @@ import frc.robot.subsystems.ExampleSubsystem;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -28,6 +32,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final DriveSubsystem m_DriveSubsystem; 
+
+  // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+  
+
+
  
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
