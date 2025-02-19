@@ -21,7 +21,10 @@ public class TeleopDriveCommand extends Command {
 
     @Override 
     public void execute() {
-        swerveBase.drive(Input.getVertical(), Input.getHorizontal(), Input.getRotation());
+        if (!Input.driveController.getAButton()) {
+            swerveBase.drive(Input.getVertical(), Input.getHorizontal(), Input.getRotation());
+        }
+  
     }
 
     @Override

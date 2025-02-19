@@ -80,6 +80,7 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.m_DriveSubsystem.zero();
+    m_robotContainer.m_DriveSubsystem.setOffsets();
   }
 
   /** This function is called periodically during operator control. */

@@ -67,18 +67,23 @@ public class DriveSubsystem extends SubsystemBase {
     @Override 
     public void periodic() {
         
-        SmartDashboard.putNumber("Front Left Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
-        SmartDashboard.putNumber("Front Right Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
-        SmartDashboard.putNumber("Back Left Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
-        SmartDashboard.putNumber("Back Right Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getVelocity());
-
-        
+        SmartDashboard.putNumber("Front Right Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getAbsolutePosition());
+        SmartDashboard.putNumber("Front Left Angle Encoder", swerveDrive.getModules()[1].getAbsoluteEncoder().getAbsolutePosition());
+        SmartDashboard.putNumber("Back Left Angle Encoder", swerveDrive.getModules()[2].getAbsoluteEncoder().getAbsolutePosition());
+        SmartDashboard.putNumber("Back Right Angle Encoder", swerveDrive.getModules()[3].getAbsoluteEncoder().getAbsolutePosition());
 
     }
 
     public void zero() {
         swerveDrive.zeroGyro();
-    }   
+    } 
+    
+    public void setOffsets() {
+        swerveDrive.getModules()[0].getAbsoluteEncoder().setAbsoluteEncoderOffset(15.293363877218226);
+        swerveDrive.getModules()[1].getAbsoluteEncoder().setAbsoluteEncoderOffset(19.985828787361505);
+        swerveDrive.getModules()[2].getAbsoluteEncoder().setAbsoluteEncoderOffset(308.7211893789664);
+        swerveDrive.getModules()[3].getAbsoluteEncoder().setAbsoluteEncoderOffset(338.5617816697737);
+    }
     
     
     //IDK I copied and pasted this method

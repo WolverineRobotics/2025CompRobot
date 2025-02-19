@@ -16,4 +16,8 @@ public class Input {
     public static double getVertical() {
         return driveController.getLeftY() * -0.1;
     }
+
+    public static Boolean turnRight() {
+        return driveController.getBButton();
+    }
 }
