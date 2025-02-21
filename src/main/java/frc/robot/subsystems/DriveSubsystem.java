@@ -11,24 +11,18 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveSubsystemConstants;
-import swervelib.parser.SwerveParser;
-import swervelib.parser.json.modules.DriveConversionFactorsJson;
-import swervelib.math.SwerveMath;
-import swervelib.SwerveController;
 import swervelib.SwerveDrive;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.StructPublisher;
+import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -37,8 +31,10 @@ public class DriveSubsystem extends SubsystemBase {
     
 
     public DriveSubsystem(File directory, double maximumSpeed) throws IOException {
+        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         //Creating the swerveDrive from the configuration files 
         swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
+        
         
         //Setting up path planner 
         setupPathPlanner();
@@ -78,13 +74,7 @@ public class DriveSubsystem extends SubsystemBase {
         swerveDrive.zeroGyro();
     } 
     
-    public void setOffsets() {
-        swerveDrive.getModules()[0].getAbsoluteEncoder().setAbsoluteEncoderOffset(15.293363877218226);
-        swerveDrive.getModules()[1].getAbsoluteEncoder().setAbsoluteEncoderOffset(19.985828787361505);
-        swerveDrive.getModules()[2].getAbsoluteEncoder().setAbsoluteEncoderOffset(308.7211893789664);
-        swerveDrive.getModules()[3].getAbsoluteEncoder().setAbsoluteEncoderOffset(338.5617816697737);
-    }
-    
+   
     
     //IDK I copied and pasted this method
     public void setupPathPlanner()
