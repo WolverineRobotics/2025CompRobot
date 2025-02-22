@@ -63,10 +63,12 @@ public class DriveSubsystem extends SubsystemBase {
     @Override 
     public void periodic() {
         
+        // Putting Encoder values to smartdashboard
         SmartDashboard.putNumber("Front Right Angle Encoder", swerveDrive.getModules()[0].getAbsoluteEncoder().getAbsolutePosition());
         SmartDashboard.putNumber("Front Left Angle Encoder", swerveDrive.getModules()[1].getAbsoluteEncoder().getAbsolutePosition());
         SmartDashboard.putNumber("Back Left Angle Encoder", swerveDrive.getModules()[2].getAbsoluteEncoder().getAbsolutePosition());
         SmartDashboard.putNumber("Back Right Angle Encoder", swerveDrive.getModules()[3].getAbsoluteEncoder().getAbsolutePosition());
+        
 
     }
 

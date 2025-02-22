@@ -1,27 +1,28 @@
 {
-    "location": {
-      "front": -14,
-      "left": 14
-    },
-    "absoluteEncoderOffset": 59.9,
-    "drive": {
-      "type": "sparkmax_neo",
-      "id": 20,
-      "canbus": null
-    },
-    "angle": {
-      "type": "sparkmax_neo",
-      "id": 16,
-      "canbus": null
-    },
-    "encoder": {
-      "type": "thrifty",
-      "id": 1,
-      "canbus": "rio"
-    },
-    "inverted": {
-      "drive": false,
-      "angle": false
-    },
-    "absoluteEncoderInverted": false
-  }
+  "location": {
+    "front": -14,
+    "left": 14
+  },
+  "absoluteEncoderOffset": 0,
+  "drive": {
+    "type": "sparkmax_neo",
+    "id": 20,
+    "canbus": null
+  },
+  "angle": {
+    "type": "sparkmax_neo",
+    "id": 16,
+    "canbus": null,
+    "comment": "angle encoder scaling much less than absolute encoder reading"
+  },
+  "encoder": {
+    "type": "thrifty",
+    "id": 1,
+    "canbus": null
+  },
+  "inverted": {
+    "drive": false,
+    "angle": true
+  },
+  "absoluteEncoderInverted": false
+}
