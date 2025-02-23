@@ -3,16 +3,81 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
   public final SparkMax leftMotor, rightMotor;
+  public final DigitalInput bottomSwitch, topSwitch;
+  public final RelativeEncoder leftEncoder, rightEncoder;
+  // public final SparkMaxConfig rightMotorConfig;
+
   public ElevatorSubsystem() {
-    leftMotor = new SparkMax(0, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushless);
-    rightMotor = new SparkMax(0, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushless);
+    // Create Instances Of Electronics
+    leftMotor = new SparkMax(Constants.kLeftElevatorMotor, MotorType.kBrushless);
+    rightMotor = new SparkMax(Constants.kRightElevatorMotor, MotorType.kBrushless);
+
+    // WPILib Deprecated the Method for Inverting SparkMaxes What The Sigma
+    /* Code To Change Configuration In-Case We Can't Invert Them Through Rev
+    rightMotorConfig = new SparkMaxConfig();
+    rightMotorConfig
+      .inverted(true);
+
+    rightMotor.configure(rightMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+     */
+    
+    bottomSwitch = new DigitalInput(Constants.kBottomLimit);
+    topSwitch = new DigitalInput(Constants.kTopLimit);
+
+    // Create Instances of Encoders
+    leftEncoder = leftMotor.getEncoder();
+    rightEncoder = rightMotor.getEncoder();
+  }
+
+  // Change Elevation Of Elevator
+  public void moveElevator(double speed) {
+    leftMotor.set(speed);
+    rightMotor.set(-1*speed);
+  }
+
+  // Detect Elevator At Limits
+  public boolean atBottomLimit() {
+    if (bottomSwitch.get()) {
+      return true;
+    } 
+
+    else {return false;}
+  }
+
+  public boolean atTopLimit() {
+    if (topSwitch.get()) {
+      return true;
+    } 
+
+    else {return false;}
+  }
+    
+  // Get Encoder Measurements
+  public double getEncoderAverage() {
+    return (getLeftEncoder() + getRightEncoder())/2;
+  }
+
+  public double getLeftEncoder() {
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoder() {
+    return rightEncoder.getPosition();
   }
 
   /**
@@ -30,12 +95,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         });
   }
 
-  public void testFunction() {
-    leftMotor.set(0.5);
-    rightMotor.set(0.5);
-   }
-
-
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
@@ -48,7 +107,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Get Telemetry Data
+    SmartDashboard.putNumber("Left Motor", leftMotor.get());
+    SmartDashboard.putNumber("Right Motor", rightMotor.get());
+    SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
+    SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+    SmartDashboard.putBoolean("Bottom Limit Switch", atBottomLimit());
+    SmartDashboard.putBoolean("Top Limit Switch", atTopLimit());
   }
 
   @Override

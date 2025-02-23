@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DefaultElevatorCommand;
+import frc.robot.subsystems.*;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -15,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+
+  public ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
   private final RobotContainer m_robotContainer;
 
@@ -35,6 +39,11 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
+  @Override 
+  public void robotInit() {
+    elevatorSubsystem.setDefaultCommand(new DefaultElevatorCommand(elevatorSubsystem));
+  }
+
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
