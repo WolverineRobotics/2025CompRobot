@@ -25,4 +25,8 @@ public final class Constants {
     public static final int righttMotorCAN = 2;
     public static final int encoderDIO = 0;
   }
+
+  public static class DriveSubsystemConstants {
+    public static final double kAlignVelocity = 3;
+  }
 }
