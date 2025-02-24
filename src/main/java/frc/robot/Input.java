@@ -10,7 +10,7 @@ public class Input {
     }
 
     public static double getRotation() {
-        return driveController.getRightX() * 0.1;
+        return driveController.getRightX();
     }
 
     public static double getVertical() {
