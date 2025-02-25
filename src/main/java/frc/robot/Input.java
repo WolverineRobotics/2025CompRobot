@@ -10,14 +10,14 @@ public class Input {
     }
 
     public static double getRotation() {
-        return driveController.getRightX();
+        return driveController.getRightX() * 360;
     }
 
     public static double getVertical() {
         return driveController.getLeftY() * 0.1;
     }
 
-    public static Boolean turnRight() {
+    public static Boolean alignAprilTag() {
         return driveController.getBButton();
     }
 }

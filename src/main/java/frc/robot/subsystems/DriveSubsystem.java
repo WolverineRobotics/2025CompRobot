@@ -44,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
  
     public void drive(double translationX, double translationY, double headingX) {
             // Scaling the inputs to the correct speeds
-            ChassisSpeeds targetSpeeds = swerveDrive.swerveController.getTargetSpeeds(translationX, translationY, headingX, swerveDrive.getOdometryHeading().getRadians(), swerveDrive.getMaximumChassisVelocity());
+            ChassisSpeeds targetSpeeds = swerveDrive.swerveController.getTargetSpeeds(translationX, translationY, Units.degreesToRadians(headingX), swerveDrive.getOdometryHeading().getRadians(), swerveDrive.getMaximumChassisVelocity());
             swerveDrive.driveFieldOriented(targetSpeeds);
                
         }
