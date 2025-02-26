@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
 
   public static class ExampleSubsystemConst {
@@ -24,5 +25,12 @@ public final class Constants {
     public static final int leftMotorCAN = 1;
     public static final int righttMotorCAN = 2;
     public static final int encoderDIO = 0;
+
+  }
+
+  public static class IntakeConstants {
+        // Intake Constants
+        public static final int kIntakeMotorCANID = 1;
+        public static final int kLimitSwitchPort = 0;
   }
 }
