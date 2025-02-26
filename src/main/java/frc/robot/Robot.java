@@ -94,13 +94,13 @@ public class Robot extends TimedRobot {
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
     }
-    SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
-    SmartDashboard.putNumber("Vertical", Input.getVertical());
-    SmartDashboard.putNumber("Rotation", Input.getRotation());
+    // SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
+    // SmartDashboard.putNumber("Vertical", Input.getVertical());
+    // SmartDashboard.putNumber("Rotation", Input.getRotation());
   }
 
 
-  }
+  
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
