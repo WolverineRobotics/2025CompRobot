@@ -14,10 +14,16 @@ package frc.robot;
  */
 public final class Constants {
   // Elevator Constants
+
+  // Can IDs
   public static final int kLeftElevatorMotor = 0;
   public static final int kRightElevatorMotor = 0;
   public static final int kBottomLimit = 0;
   public static final int kTopLimit = 0;
+
+  // Encoder Ranges For Soft Limits
+  public static final int kSoftBotLimit = 0;
+  public static final int kSoftTopLimit = 0;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

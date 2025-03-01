@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Input;
 
 /** An example command that uses an example subsystem. */
@@ -32,15 +33,24 @@ public class DefaultElevatorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Check For Soft Limits
+    if (elevator.getEncoderAverage() <= Constants.kSoftBotLimit) {
+      // Half Current Speed -> Motors Would Be Running at 25% Speed
+      elevator.moveElevator(Input.changeElevation() * 0.5);
+    }
+    if (elevator.getEncoderAverage() >= Constants.kSoftTopLimit) {
+      elevator.moveElevator(Input.changeElevation() * 0.5);
+    } 
+
     // Check For Top Limit Switch
-    if (elevator.atBottomLimit() && Input.changeElevation() != 0){
+    if (elevator.atBottomLimit() && Input.changeElevation() > 0){
       elevator.moveElevator(0);
     } else{
       elevator.moveElevator(Input.changeElevation());
     }
 
     // Check For Bottom Limit Switch
-    if (elevator.atTopLimit() && Input.changeElevation() != 0){
+    if (elevator.atTopLimit() && Input.changeElevation() < 0){
       elevator.moveElevator(0);
     } else{
       elevator.moveElevator(Input.changeElevation());

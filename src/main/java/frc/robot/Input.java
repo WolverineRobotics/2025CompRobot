@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.XboxController;
 public final class Input {
   public static XboxController opController = new XboxController(1);
 
+  // Current Speed Is Halved
   public static double changeElevation() {
     return opController.getRightY() * 0.5;
   }
