@@ -25,4 +25,10 @@ public final class Constants {
     public static final int righttMotorCAN = 2;
     public static final int encoderDIO = 0;
   }
+
+  public static class ElevatorSubsystemConst {
+
+    public static final int leftElevatorMotorCAN = 8;
+    public static final int rightElevatorMotorCAN = 18;
+  }
 }
