@@ -18,8 +18,10 @@ import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.TeleopDriveCommand;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -41,6 +43,9 @@ public class DriveSubsystem extends SubsystemBase {
         
         //Setting up path planner 
         setupPathPlanner();
+
+        //Zeros Gyro at start of auto 
+        RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zero));
 
           
     }
@@ -84,6 +89,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void zero() {
+        //Zeroing the gyro 
         swerveDrive.zeroGyro();
     } 
     

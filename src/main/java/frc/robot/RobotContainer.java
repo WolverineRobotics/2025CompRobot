@@ -48,6 +48,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     try {
+      //Creating a drivesubsystem from the config files and handling the case where they do not exist 
       m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5);
     }
 

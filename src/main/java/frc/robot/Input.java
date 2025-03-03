@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 
+// A class to get input from the controller effectivlly 
 public class Input {
     public static XboxController driveController = new XboxController(0);
 
@@ -21,6 +22,7 @@ public class Input {
         return driveController.getLeftY() * -1;
     }
 
+    // Debug method only 
     public static Boolean turnRight() {
         return driveController.getBButton();
     }
