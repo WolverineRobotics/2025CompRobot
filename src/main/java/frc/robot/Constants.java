@@ -30,7 +30,7 @@ public final class Constants {
 
   public static class IntakeConstants {
         // Intake Constants
-        public static final int kIntakeMotorCANID = 1;
+        public static final int kIntakeMotorCANID = 31;
         public static final int kLimitSwitchPort = 0;
   }
 }
