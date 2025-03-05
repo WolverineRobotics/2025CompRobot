@@ -59,7 +59,6 @@ public class DriveSubsystem extends SubsystemBase {
                 translationY * maxSpeed, 
                 headingX * swerveDrive.getMaximumChassisAngularVelocity()
             );
-
             swerveDrive.driveFieldOriented(targetSpeeds);
                
         }

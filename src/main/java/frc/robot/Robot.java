@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Input;
+import frc.robot.commands.AlignAprilTag;
 import frc.robot.commands.TeleopDriveCommand;
 import swervelib.math.SwerveMath;
 import frc.robot.subsystems.LimelightInterface;
@@ -24,7 +25,7 @@ public class Robot extends TimedRobot {
 
 
   private final RobotContainer m_robotContainer;
-  private final LimelightInterface m_LimelightInterface;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,7 +35,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_LimelightInterface = new LimelightInterface(); 
+   
   }
 
   /**
@@ -96,9 +97,12 @@ public class Robot extends TimedRobot {
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
     }
-    // SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
-    // SmartDashboard.putNumber("Vertical", Input.getVertical());
-    // SmartDashboard.putNumber("Rotation", Input.getRotation());
+    if (Input.alignAprilTag()) {
+      new AlignAprilTag(m_robotContainer.m_LimelightInterface, m_robotContainer.m_DriveSubsystem).schedule();
+    }
+    SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
+    SmartDashboard.putNumber("Vertical", Input.getVertical());
+    SmartDashboard.putNumber("Rotation", Input.getRotation());
   }
 
 

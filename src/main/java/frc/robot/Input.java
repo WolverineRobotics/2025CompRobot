@@ -29,8 +29,7 @@ public class Input {
         return 0;
     }
 
-    // Debug method only 
-    public static Boolean turnRight() {
+    public static Boolean alignAprilTag() {
         return driveController.getBButton();
     }
 }
