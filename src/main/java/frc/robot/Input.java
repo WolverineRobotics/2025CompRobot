@@ -1,25 +1,31 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.OperatorConstants;
 
 // A class to get input from the controller effectivlly 
 public class Input {
     public static XboxController driveController = new XboxController(0);
 
     public static double getHorizontal() {
-        return driveController.getLeftX() * -1;
+        if (driveController.getLeftX() > 0.1) {
+            return driveController.getLeftX() * OperatorConstants.DRIVE_OFFSET;
+        }
+        return 0;
     }
 
     public static double getHorizontalRotation() {
-        return driveController.getRightX() * -0.75;
-    }
-
-    public static double getVerticalRotation() {
-        return driveController.getRightY() * -0.75;
+        if (driveController.getRightX() > 0.1) {
+            return driveController.getRightX() * OperatorConstants.DRIVE_OFFSET;
+        }
+        return 0; 
     }
 
     public static double getVertical() {
-        return driveController.getLeftY() * -1;
+        if (driveController.getLeftY() > 0.1) {
+            return driveController.getLeftY() * OperatorConstants.DRIVE_OFFSET;
+        }
+        return 0;
     }
 
     // Debug method only 

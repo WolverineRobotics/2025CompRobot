@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final double DRIVE_OFFSET = 0; 
   }
 
   public static class ExampleSubsystemConst {
@@ -26,7 +27,4 @@ public final class Constants {
     public static final int encoderDIO = 0;
   }
 
-  public static class DriveSubsystemConstants {
-    public static final double kAlignVelocity = 3;
-  }
 }

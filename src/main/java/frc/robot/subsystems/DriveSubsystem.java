@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.TeleopDriveCommand;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import swervelib.SwerveDrive;
+import swervelib.parser.SwerveControllerConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -50,16 +51,14 @@ public class DriveSubsystem extends SubsystemBase {
           
     }
  
-    public void drive(double translationX, double translationY, double headingX, double headingY) {
+    public void drive(double translationX, double translationY, double headingX) {
             // Scaling the inputs to the correct speeds
-            
-            ChassisSpeeds targetSpeeds = swerveDrive.swerveController.getTargetSpeeds(
-                translationX, 
-                translationY, 
-                headingX, 
-                headingY, 
-                swerveDrive.getOdometryHeading().getRadians(), 
-                swerveDrive.getMaximumChassisVelocity());
+            double maxSpeed = swerveDrive.getMaximumChassisVelocity();
+            ChassisSpeeds targetSpeeds = new ChassisSpeeds(
+                translationX * maxSpeed, 
+                translationY * maxSpeed, 
+                headingX * swerveDrive.getMaximumChassisAngularVelocity()
+            );
 
             swerveDrive.driveFieldOriented(targetSpeeds);
                
