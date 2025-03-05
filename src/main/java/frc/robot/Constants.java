@@ -17,18 +17,20 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public static class ExampleSubsystemConst {
-    //You can add variables in here so later in the code numbers are referenced as, for example:
-    // Constants.ExampleSubsystem.leftMotorCAN;
-
-    public static final int leftMotorCAN = 1;
-    public static final int righttMotorCAN = 2;
-    public static final int encoderDIO = 0;
-  }
-
   public static class ElevatorSubsystemConst {
+    // CAN IDS And DIO Ports
+    public static final int leftElevatorMotorCAN = 21;
+    public static final int rightElevatorMotorCAN = 22;
 
-    public static final int leftElevatorMotorCAN = 8;
-    public static final int rightElevatorMotorCAN = 18;
+    public static final int kTopLimitSwitch = 0;
+    public static final int kBotLimitSwitch = 1;
+
+    // PID & Motion Profiling Constants
+    public static final double kp = 0;
+    public static final double ki = 0;
+    public static final double kd = 0;
+
+    public static final double kVel = 0;
+    public static final double kAcc = 0;
   }
 }
