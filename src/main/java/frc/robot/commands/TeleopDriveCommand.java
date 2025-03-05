@@ -9,6 +9,7 @@ public class TeleopDriveCommand extends Command {
     
     DriveSubsystem swerveBase;
 
+
     public TeleopDriveCommand(DriveSubsystem driveBase) {
         swerveBase = driveBase;
         addRequirements(swerveBase);
@@ -17,14 +18,12 @@ public class TeleopDriveCommand extends Command {
 
     @Override 
     public void initialize() {
-
     }
 
     @Override 
     public void execute() {
-        if (!Input.driveController.getAButton()) {
-            swerveBase.drive(Input.getVertical(), Input.getHorizontal(), Input.getRotation());
-        }
+        swerveBase.drive(Input.getVertical(), Input.getHorizontal(), Input.getHorizontalRotation());
+    
   
     }
 

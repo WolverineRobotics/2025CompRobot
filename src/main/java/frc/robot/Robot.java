@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    m_robotContainer.m_DriveSubsystem.zero();
   }
 
   /** This function is called periodically during autonomous. */
@@ -86,16 +87,16 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.m_DriveSubsystem.zero();
+    
     }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    //Scheduling a drive command if there are inputs from the controller 
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
     }
-
     if (Input.alignAprilTag()) {
       new AlignAprilTag(m_robotContainer.m_LimelightInterface, m_robotContainer.m_DriveSubsystem).schedule();
     }
