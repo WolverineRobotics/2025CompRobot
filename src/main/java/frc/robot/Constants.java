@@ -28,4 +28,21 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class ElevatorSubsystemConst {
+    // CAN IDS And DIO Ports
+    public static final int leftElevatorMotorCAN = 21;
+    public static final int rightElevatorMotorCAN = 22;
+
+    public static final int kTopLimitSwitch = 0;
+    public static final int kBotLimitSwitch = 1;
+
+    // PID & Motion Profiling Constants
+    public static final double kp = 0;
+    public static final double ki = 0;
+    public static final double kd = 0;
+
+    public static final double kVel = 0;
+    public static final double kAcc = 0;
+  }
 }
