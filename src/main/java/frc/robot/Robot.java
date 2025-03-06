@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Input;
+import frc.robot.Constants.DebugConst;
 import frc.robot.commands.AlignAprilTag;
 import frc.robot.commands.TeleopDriveCommand;
 import swervelib.math.SwerveMath;
@@ -97,13 +98,22 @@ public class Robot extends TimedRobot {
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
     }
+    // if (Input.alignAprilTag()) {
+    //   new AlignAprilTag(m_robotContainer.m_LimelightInterface, m_robotContainer.m_DriveSubsystem).schedule();
+    // }
+
     if (Input.alignAprilTag()) {
-      new AlignAprilTag(m_robotContainer.m_LimelightInterface, m_robotContainer.m_DriveSubsystem).schedule();
+      System.out.println("A Button Pressed");
+      Command drivePath = m_robotContainer.m_DriveSubsystem.driveToPoint(DebugConst.DEBUG_POSE2D);
+      drivePath.schedule(); 
+      if (drivePath.isScheduled()) {
+        System.out.println("Command Scheladel ");
+      }
     }
     SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
     SmartDashboard.putNumber("Vertical", Input.getVertical());
-    SmartDashboard.putNumber("Rotation", Input.getRotation());
-  }
+    SmartDashboard.putData("Command", CommandScheduler.getInstance());
+   }
 
 
   
@@ -126,6 +136,15 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
+    }
+
+    if (Input.alignAprilTag()) {
+      System.out.println("A Button Pressed");
+      Command drivePath = m_robotContainer.m_DriveSubsystem.driveToPoint(DebugConst.DEBUG_POSE2D);
+      drivePath.schedule(); 
+      if (drivePath.isScheduled()) {
+        System.out.println("Command Scheladel ");
+      }
     }
   }
 }

@@ -18,7 +18,7 @@ public class AlignAprilTag extends Command {
     
     @Override 
     public void initialize() {
-
+        
     }
 
     @Override 

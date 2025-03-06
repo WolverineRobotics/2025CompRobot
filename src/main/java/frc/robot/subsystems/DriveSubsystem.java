@@ -67,11 +67,12 @@ public class DriveSubsystem extends SubsystemBase {
         // Creating the contraints for the path to follow
         PathConstraints constraints = new PathConstraints(1, 1,Units.degreesToRadians(180), Units.degreesToRadians(180));
 
+        System.out.println("");
         //Using path planner magic to generate a Command to drive to point
         return AutoBuilder.pathfindToPose(
             point,
             constraints,
-            edu.wpi.first.units.Units.MetersPerSecond.of(0));
+            edu.wpi.first.units.Units.MetersPerSecond.of(4.5));
     }
 
     @Override 

@@ -30,5 +30,9 @@ public final class Constants {
     public static final int righttMotorCAN = 2;
     public static final int encoderDIO = 0;
   }
+  public static class DebugConst {
+  public static final Pose2d DEBUG_POSE2D = new Pose2d(100, 100, new Rotation2d(Math.PI));
+
+  } 
 
 }
