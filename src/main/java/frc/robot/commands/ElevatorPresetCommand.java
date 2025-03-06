@@ -31,7 +31,7 @@ public class ElevatorPresetCommand extends Command {
 
     @Override 
     public boolean isFinished() {
-        return false;
+        return m_ElevatorSubsystem.atSetpoint();
     }
 
 

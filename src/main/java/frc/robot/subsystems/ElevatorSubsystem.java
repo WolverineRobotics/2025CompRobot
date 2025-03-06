@@ -48,10 +48,15 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     public void elevationPreset(double preset) {
         m_Controller.setGoal(preset);
+        while (!m_Controller.atGoal()){
         m_LeftMotor.set(m_Controller.calculate(m_leftEncoder.getPosition()));
+        }
 
         }
     
+    public boolean atSetpoint() {
+        return m_Controller.atGoal();
+    }
 
     @Override
     public void periodic() {
