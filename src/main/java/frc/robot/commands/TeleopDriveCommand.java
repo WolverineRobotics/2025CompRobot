@@ -22,7 +22,7 @@ public class TeleopDriveCommand extends Command {
 
     @Override 
     public void execute() {
-        swerveBase.drive(Input.getVertical(), Input.getHorizontal(), Input.getHorizontalRotation());
+        swerveBase.driveTeleop(Input.getVertical(), Input.getHorizontal(), Input.getHorizontalRotation());
     
   
     }

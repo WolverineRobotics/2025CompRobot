@@ -34,5 +34,33 @@ public final class Constants {
   public static final Pose2d DEBUG_POSE2D = new Pose2d(100, 100, new Rotation2d(Math.PI));
 
   } 
+  public static class DriveConst {
+    //X pids 
+    public static final double X_TRANSLATION_P = 0;
+    public static final double X_TRANSLATION_I = 0;
+    public static final double X_TRANSLATION_D = 0;
+
+    //Y pids 
+    public static final double Y_TRANSLATION_P = 0;
+    public static final double Y_TRANSLATION_I = 0;
+    public static final double Y_TRANSLATION_D = 0;
+
+    //Rotation pids 
+    public static final double ROTATION_P = 0;
+    public static final double ROTATION_I = 0;
+    public static final double ROTATION_D = 0;
+
+    //Reef 
+    public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0;  // Rotation
+    public static final double ROT_TOLERANCE_REEF_ALIGNMENT = 0.5;
+    public static final double X_SETPOINT_REEF_ALIGNMENT = -0.5;  // Vertical pose
+    public static final double X_TOLERANCE_REEF_ALIGNMENT = 0.005;
+    public static final double Y_SETPOINT_REEF_ALIGNMENT = 0.19;  // Horizontal pose
+    public static final double Y_TOLERANCE_REEF_ALIGNMENT = 0.005;
+
+    
+    public static final double DONT_SEE_TAG_WAIT_TIME = 1;
+    public static final double POSE_VALIDATION_TIME = 0.3;
+  }
 
 }

@@ -51,7 +51,7 @@ public class DriveSubsystem extends SubsystemBase {
           
     }
  
-    public void drive(double translationX, double translationY, double headingX) {
+    public void driveTeleop(double translationX, double translationY, double headingX) {
             // Scaling the inputs to the correct speeds
             double maxSpeed = swerveDrive.getMaximumChassisVelocity();
             ChassisSpeeds targetSpeeds = new ChassisSpeeds(
@@ -63,18 +63,6 @@ public class DriveSubsystem extends SubsystemBase {
                
         }
     
-    public Command driveToPoint(Pose2d point) {
-        // Creating the contraints for the path to follow
-        PathConstraints constraints = new PathConstraints(1, 1,Units.degreesToRadians(180), Units.degreesToRadians(180));
-
-        System.out.println("");
-        //Using path planner magic to generate a Command to drive to point
-        return AutoBuilder.pathfindToPose(
-            point,
-            constraints,
-            edu.wpi.first.units.Units.MetersPerSecond.of(4.5));
-    }
-
     @Override 
     public void periodic() {
         
