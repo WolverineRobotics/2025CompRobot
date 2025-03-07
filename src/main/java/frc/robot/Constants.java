@@ -41,6 +41,8 @@ public final class Constants {
     public static final double L1_ENCODER_VALUE = 0; 
     public static final double L2_ENCODER_VALUE = 0; 
     public static final double L3_ENCODER_VALUE = 0; 
-    public static final double L4_ENCODER_VALUE = -27000; 
+    public static final double L4_ENCODER_VALUE = -2700; 
+
+
   }
 }
