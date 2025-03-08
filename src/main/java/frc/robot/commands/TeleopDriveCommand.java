@@ -7,30 +7,29 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class TeleopDriveCommand extends Command {
     
-    DriveSubsystem swerveBase;
+    DriveSubsystem driveBase;
 
 
     public TeleopDriveCommand(DriveSubsystem driveBase) {
-        swerveBase = driveBase;
-        addRequirements(swerveBase);
+        this.driveBase = driveBase;
+        addRequirements(driveBase);
         
     }
 
     @Override 
     public void initialize() {
-        swerveBase.drive(0, 0, 0);
     }
 
     @Override 
     public void execute() {
-        swerveBase.driveTeleop(Input.getVertical(), Input.getHorizontal(), Input.getHorizontalRotation());
+        driveBase.driveTeleop(Input.getVertical(), Input.getHorizontal(), Input.getHorizontalRotation());
     
   
     }
 
     @Override
     public void end(boolean interrupted) {
-        swerveBase.drive(0, 0, 0);
+        driveBase.drive(0, 0, 0);
     }
 
     @Override 

@@ -9,27 +9,35 @@ public class Input {
     public static XboxController driveController = new XboxController(0);
 
     public static double getHorizontal() {
-        if (Math.abs(driveController.getLeftX()) > OperatorConstants.CONTROLLER_DEADBAND) {
-            return driveController.getLeftX() * OperatorConstants.DRIVE_OFFSET;
-        }
-        return 0;
+        return deadBand(
+                driveController.getLeftX() * OperatorConstants.DRIVE_OFFSET,
+                OperatorConstants.CONTROLLER_DEADBAND
+        );
     }
 
     public static double getHorizontalRotation() {
-        if (Math.abs(driveController.getRightX()) > OperatorConstants.CONTROLLER_DEADBAND) {
-            return driveController.getRightX() * OperatorConstants.DRIVE_OFFSET;
-        }
-        return 0; 
+        return deadBand(
+            driveController.getRightX() * OperatorConstants.DRIVE_OFFSET,
+            OperatorConstants.CONTROLLER_DEADBAND
+        );
     }
 
     public static double getVertical() {
-        if (Math.abs(driveController.getLeftY()) > OperatorConstants.CONTROLLER_DEADBAND) {
-            return driveController.getLeftY() * OperatorConstants.DRIVE_OFFSET;
-        }
-        return 0;
+        return deadBand(
+            driveController.getLeftY() * OperatorConstants.DRIVE_OFFSET,
+            OperatorConstants.CONTROLLER_DEADBAND
+        );
     }
 
     public static Boolean alignAprilTag() {
         return driveController.getBButton();
+    }
+
+    private static double deadBand(double input, double deadBand) {
+        if (Math.abs(input) > deadBand) {
+            return input;
+        } else {
+            return 0;
+        }
     }
 }

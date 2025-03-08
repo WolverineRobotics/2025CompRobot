@@ -98,11 +98,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    //Scheduling a drive command if there are inputs from the controller 
-    if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
-      new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
-    }
+  public void teleopPeriodic() { 
+    
     // if (Input.alignAprilTag()) {
     //   new AlignAprilTag(m_robotContainer.m_LimelightInterface, m_robotContainer.m_DriveSubsystem).schedule();
     // }
@@ -110,6 +107,7 @@ public class Robot extends TimedRobot {
     if (Input.alignAprilTag()) {
       new AlignAprilTag(m_robotContainer.m_DriveSubsystem, true);
     }
+
     SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
     SmartDashboard.putNumber("Vertical", Input.getVertical());
     SmartDashboard.putData("Command", CommandScheduler.getInstance());
@@ -134,9 +132,5 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
-      new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
-    }
-
  }
 }

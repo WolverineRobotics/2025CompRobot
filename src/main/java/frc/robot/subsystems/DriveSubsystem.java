@@ -31,8 +31,8 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    SwerveDrive swerveDrive;
-    StructPublisher<Pose2d> posePublisher;
+    private SwerveDrive swerveDrive;
+    private StructPublisher<Pose2d> posePublisher;
     
 
     public DriveSubsystem(File directory, double maximumSpeed) throws IOException {
@@ -52,9 +52,16 @@ public class DriveSubsystem extends SubsystemBase {
           
     }
  
+    /**
+     * Teleop drive method expecting controller input
+     * @param translationX value between -1 and 1
+     * @param translationY value between -1 and 1
+     * @param headingX rotational velocity as a value between -1 and 1
+     */
     public void driveTeleop(double translationX, double translationY, double headingX) {
             // Scaling the inputs to the correct speeds
-            double maxSpeed = swerveDrive.getMaximumChassisVelocity();
+            // double maxSpeed = swerveDrive.getMaximumChassisVelocity();
+            double maxSpeed = 1;
             ChassisSpeeds targetSpeeds = new ChassisSpeeds(
                 translationX * maxSpeed, 
                 translationY * maxSpeed, 
@@ -63,7 +70,12 @@ public class DriveSubsystem extends SubsystemBase {
             swerveDrive.driveFieldOriented(targetSpeeds);
                
         }
-    
+    /**
+     * Converted velocity inputs
+     * @param xSpeed Value in m/s
+     * @param ySpeed Value in m/s
+     * @param rotSpeed Value in rad/s
+     */
     public void drive(double xSpeed, double ySpeed, double rotSpeed) {
         ChassisSpeeds targetSpeeds = new ChassisSpeeds(xSpeed, ySpeed, rotSpeed);
         swerveDrive.driveFieldOriented(targetSpeeds);
