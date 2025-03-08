@@ -21,8 +21,28 @@ public final class Constants {
     //You can add variables in here so later in the code numbers are referenced as, for example:
     // Constants.ExampleSubsystem.leftMotorCAN;
 
-    public static final int leftMotorCAN = 1;
-    public static final int righttMotorCAN = 2;
+    // public static final int leftMotorCAN = 21;
+    // public static final int righttMotorCAN = 22;
     public static final int encoderDIO = 0;
+  }
+
+  public static class ElevatorSubsystemConst {
+
+    public static final int leftElevatorMotorCAN = 21;
+    public static final int rightElevatorMotorCAN = 22;
+
+    public static final double kP = 0.0201;
+    public static final double kI = 0; 
+    public static final double kD = 0.002125; 
+
+    public static final double MAX_SPEED = 1; 
+    public static final double MAX_ACCELERATION = 0.5;
+
+    public static final double L1_ENCODER_VALUE = 0; 
+    public static final double L2_ENCODER_VALUE = -427.19720458984375; 
+    public static final double L3_ENCODER_VALUE = -801; 
+    public static final double L4_ENCODER_VALUE = -2700; 
+
+
   }
 }
