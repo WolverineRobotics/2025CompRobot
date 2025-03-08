@@ -72,11 +72,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
     m_robotContainer.m_DriveSubsystem.zero();
-
-    CommandScheduler.getInstance().cancelAll();
   }
-
- 
 
   /** This function is called periodically during autonomous. */
   @Override
@@ -92,28 +88,14 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    CommandScheduler.getInstance().cancelAll();
     
     }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() { 
-    
-    // if (Input.alignAprilTag()) {
-    //   new AlignAprilTag(m_robotContainer.m_LimelightInterface, m_robotContainer.m_DriveSubsystem).schedule();
-    // }
-
-    if (Input.alignAprilTag()) {
-      new AlignAprilTag(m_robotContainer.m_DriveSubsystem, true);
+  public void teleopPeriodic() {
+      m_robotContainer.teleopSequence();
     }
-
-    SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
-    SmartDashboard.putNumber("Vertical", Input.getVertical());
-    SmartDashboard.putData("Command", CommandScheduler.getInstance());
-   }
-
-
   
   @Override
   public void testInit() {
@@ -132,5 +114,5 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
- }
+  }
 }
