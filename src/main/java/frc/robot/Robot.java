@@ -7,8 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.ShootCommand;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -82,13 +80,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if (Input.getIntake()) {
-      new IntakeCommand(m_robotContainer.m_IntakeSubsystem).schedule();
-    }
-
-    if (Input.getShoot()) {
-      new ShootCommand(m_robotContainer.m_IntakeSubsystem).schedule();
-    }
+    m_robotContainer.teleopSequence();
   }
 
   @Override

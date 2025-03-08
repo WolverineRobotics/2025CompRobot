@@ -23,7 +23,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     
     public void storeCoral() {
-        while (!limitSwitch.get()) {
+        if (!limitSwitch.get()) {
             powerMotor.set(1);
         }
         powerMotor.set(0);
