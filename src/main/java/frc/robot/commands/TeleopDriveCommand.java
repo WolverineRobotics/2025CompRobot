@@ -18,6 +18,7 @@ public class TeleopDriveCommand extends Command {
 
     @Override 
     public void initialize() {
+        swerveBase.drive(0, 0, 0);
     }
 
     @Override 
@@ -29,7 +30,7 @@ public class TeleopDriveCommand extends Command {
 
     @Override
     public void end(boolean interrupted) {
-
+        swerveBase.drive(0, 0, 0);
     }
 
     @Override 

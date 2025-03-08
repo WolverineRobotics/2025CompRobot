@@ -72,7 +72,11 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
     m_robotContainer.m_DriveSubsystem.zero();
+
+    CommandScheduler.getInstance().cancelAll();
   }
+
+ 
 
   /** This function is called periodically during autonomous. */
   @Override
@@ -88,6 +92,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
+    CommandScheduler.getInstance().cancelAll();
     
     }
 
@@ -103,12 +108,7 @@ public class Robot extends TimedRobot {
     // }
 
     if (Input.alignAprilTag()) {
-      System.out.println("A Button Pressed");
-      Command drivePath = m_robotContainer.m_DriveSubsystem.driveToPoint(DebugConst.DEBUG_POSE2D);
-      drivePath.schedule(); 
-      if (drivePath.isScheduled()) {
-        System.out.println("Command Scheladel ");
-      }
+      new AlignAprilTag(m_robotContainer.m_DriveSubsystem, true);
     }
     SmartDashboard.putNumber("Horizontal", Input.getHorizontal());
     SmartDashboard.putNumber("Vertical", Input.getVertical());
@@ -138,13 +138,5 @@ public class Robot extends TimedRobot {
       new TeleopDriveCommand(m_robotContainer.m_DriveSubsystem).schedule();
     }
 
-    if (Input.alignAprilTag()) {
-      System.out.println("A Button Pressed");
-      Command drivePath = m_robotContainer.m_DriveSubsystem.driveToPoint(DebugConst.DEBUG_POSE2D);
-      drivePath.schedule(); 
-      if (drivePath.isScheduled()) {
-        System.out.println("Command Scheladel ");
-      }
-    }
-  }
+ }
 }

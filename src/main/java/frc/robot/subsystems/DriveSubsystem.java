@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Input;
 import frc.robot.commands.TeleopDriveCommand;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import swervelib.SwerveDrive;
@@ -62,6 +63,15 @@ public class DriveSubsystem extends SubsystemBase {
             swerveDrive.driveFieldOriented(targetSpeeds);
                
         }
+    
+    public void drive(double xSpeed, double ySpeed, double rotSpeed) {
+        ChassisSpeeds targetSpeeds = new ChassisSpeeds(xSpeed, ySpeed, rotSpeed);
+        swerveDrive.driveFieldOriented(targetSpeeds);
+    }
+
+    public double getAngularVelocity() {
+        return Input.getHorizontalRotation() * swerveDrive.getMaximumChassisAngularVelocity();
+    }
     
     @Override 
     public void periodic() {

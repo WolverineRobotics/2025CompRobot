@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LimelightInterface;
+import frc.robot.subsystems.LimelightSubsystem;
 
 import java.io.File;
 
@@ -33,7 +34,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final DriveSubsystem m_DriveSubsystem; 
-  public final LimelightInterface m_LimelightInterface;
+  public final LimelightSubsystem m_LimelightSubsystem;
   //private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
 
   // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
@@ -55,7 +56,7 @@ public class RobotContainer {
     try {
       //Creating a drivesubsystem from the config files and handling the case where they do not exist 
       m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5);
-      m_LimelightInterface = new LimelightInterface();
+      m_LimelightSubsystem = new LimelightSubsystem();
     }
 
     catch(Exception e) {

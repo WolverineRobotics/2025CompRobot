@@ -12,17 +12,13 @@ import frc.robot.subsystems.LimelightInterface;
 
 
 public class AlignAprilTag extends Command {
-    private final LimelightInterface limeLightSubsystem;
     private final DriveSubsystem driveSubsystem; 
     private final PIDController xController, yController, rotController;
     private final boolean isRightScore;
     private Timer stopTimer, dontSeeTagTimer; 
     
 
-    public AlignAprilTag(LimelightInterface limeLightSubsystem, DriveSubsystem driveSubsystem, boolean isRightScore) {
-
-        this.limeLightSubsystem = limeLightSubsystem; 
-        this.addRequirements(limeLightSubsystem);
+    public AlignAprilTag(DriveSubsystem driveSubsystem, boolean isRightScore) {
 
         this.driveSubsystem = driveSubsystem;
         this.addRequirements(driveSubsystem);
