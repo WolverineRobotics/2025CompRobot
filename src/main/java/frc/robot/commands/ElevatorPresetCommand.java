@@ -15,7 +15,7 @@ public class ElevatorPresetCommand extends Command {
         this.setpoint = setpoint;
     }   
 
-    @Override 
+    @Override
     public void initialize() {
         m_ElevatorSubsystem.resetPID(setpoint);
     }
@@ -27,7 +27,7 @@ public class ElevatorPresetCommand extends Command {
 
     @Override 
     public void end(boolean interrupted) {
-        m_ElevatorSubsystem.elevationPreset(0, 0);
+        m_ElevatorSubsystem.elevationPreset(0, setpoint);
     }
 
     @Override 

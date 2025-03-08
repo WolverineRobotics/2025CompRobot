@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.ElevatorSubsystemConst;
@@ -48,7 +49,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -77,6 +80,10 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    m_robotContainer.m_ElevatorSubsystem.zeroEncoders();
+
+    CommandScheduler.getInstance().cancelAll();
   }
 
   /** This function is called periodically during operator control. */
@@ -93,14 +100,14 @@ public class Robot extends TimedRobot {
       new ElevatorPresetCommand(
         m_robotContainer.m_ElevatorSubsystem,
         ElevatorSubsystemConst.L2_ENCODER_VALUE
-      );
+      ).schedule();
     }
 
     if (Input.setL3()) {
       new ElevatorPresetCommand(
         m_robotContainer.m_ElevatorSubsystem,
         ElevatorSubsystemConst.L3_ENCODER_VALUE
-      );
+      ).schedule();
     }
 
     if (Input.setL4()) {
@@ -109,6 +116,7 @@ public class Robot extends TimedRobot {
         ElevatorSubsystemConst.L4_ENCODER_VALUE
       );
     }
+    SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
   @Override

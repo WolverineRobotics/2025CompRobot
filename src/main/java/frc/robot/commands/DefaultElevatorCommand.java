@@ -18,7 +18,7 @@ public class DefaultElevatorCommand extends Command{
 
     @Override
     public void initialize() {
-        m_ElevatorSubsystem.zeroEncoders();
+        // m_ElevatorSubsystem.zeroEncoders();
     }
   
     // Called every time the scheduler runs while the command is scheduled.

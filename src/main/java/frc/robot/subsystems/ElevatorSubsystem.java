@@ -34,6 +34,9 @@ public class ElevatorSubsystem extends SubsystemBase{
              new TrapezoidProfile.Constraints(
                 ElevatorSubsystemConst.MAX_SPEED, 
                 ElevatorSubsystemConst.MAX_ACCELERATION));
+
+        m_Controller.setTolerance(20);
+        
     }
 
     public void changeElevation(double speed) {
@@ -48,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     public void elevationPreset(double speed, double setpoint) {
         m_Controller.setGoal(setpoint);
-        while (!m_Controller.atGoal()){
+        if (!m_Controller.atGoal()){
             m_LeftMotor.set(speed);
         }
 
