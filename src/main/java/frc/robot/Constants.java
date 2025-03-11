@@ -36,17 +36,17 @@ public final class Constants {
   } 
   public static class DriveConst {
     //X pids 
-    public static final double X_TRANSLATION_P = 0;
+    public static final double X_TRANSLATION_P = 0.1;
     public static final double X_TRANSLATION_I = 0;
     public static final double X_TRANSLATION_D = 0;
 
     //Y pids 
-    public static final double Y_TRANSLATION_P = 0;
+    public static final double Y_TRANSLATION_P = 0.1;
     public static final double Y_TRANSLATION_I = 0;
     public static final double Y_TRANSLATION_D = 0;
 
     //Rotation pids 
-    public static final double ROTATION_P = 0;
+    public static final double ROTATION_P = 0.1;
     public static final double ROTATION_I = 0;
     public static final double ROTATION_D = 0;
 

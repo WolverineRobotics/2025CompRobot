@@ -57,6 +57,7 @@ public class LimelightSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("BotPose Rotation",LimelightHelpers.getBotPose2d_wpiBlue("limelight").getRotation().getRadians());
 
     SmartDashboard.putNumber("Target ID",NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0));
+
     
   }
 

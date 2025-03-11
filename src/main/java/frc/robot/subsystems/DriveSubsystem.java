@@ -70,6 +70,12 @@ public class DriveSubsystem extends SubsystemBase {
             swerveDrive.driveFieldOriented(targetSpeeds);
                
         }
+
+    public double getMaxSpeed() {
+        return swerveDrive.getMaximumChassisVelocity();
+    }
+
+        
     /**
      * Converted velocity inputs
      * @param xSpeed Value in m/s
@@ -77,12 +83,17 @@ public class DriveSubsystem extends SubsystemBase {
      * @param rotSpeed Value in rad/s
      */
     public void drive(double xSpeed, double ySpeed, double rotSpeed) {
+        //System.out.println("DRIVE!!!!");
         ChassisSpeeds targetSpeeds = new ChassisSpeeds(xSpeed, ySpeed, rotSpeed);
-        swerveDrive.driveFieldOriented(targetSpeeds);
+        swerveDrive.drive(targetSpeeds); //Error is somewhere here
     }
 
     public double getAngularVelocity() {
         return Input.getHorizontalRotation() * swerveDrive.getMaximumChassisAngularVelocity();
+    }
+
+    public double getMaxAngularVelocity() {
+        return swerveDrive.getMaximumChassisAngularVelocity();
     }
     
     @Override 

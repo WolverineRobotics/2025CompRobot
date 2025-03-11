@@ -100,13 +100,13 @@ public class RobotContainer {
 
   public void teleopSequence() {
     if (Input.alignAprilTag()) {
-      new AlignAprilTag(m_DriveSubsystem, false);
+      new AlignAprilTag(m_DriveSubsystem, false).schedule();
     }
 
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_DriveSubsystem).schedule();
     }
 
-    
+    SmartDashboard.putData("", CommandScheduler.getInstance());
   }
 }

@@ -2,8 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConst;
@@ -59,7 +61,7 @@ public class AlignAprilTag extends Command {
         xController.setSetpoint(DriveConst.X_SETPOINT_REEF_ALIGNMENT);
         xController.setTolerance(DriveConst.X_TOLERANCE_REEF_ALIGNMENT);
 
-        yController.setSetpoint(isRightScore ? DriveConst.Y_SETPOINT_REEF_ALIGNMENT : -DriveConst.Y_SETPOINT_REEF_ALIGNMENT);
+        yController.setSetpoint(isRightScore ? DriveConst.Y_SETPOINT_REEF_ALIGNMENT : -1 * DriveConst.Y_SETPOINT_REEF_ALIGNMENT);
         yController.setTolerance(DriveConst.Y_TOLERANCE_REEF_ALIGNMENT);
 
         rotController.setSetpoint(DriveConst.ROT_SETPOINT_REEF_ALIGNMENT);
@@ -69,11 +71,16 @@ public class AlignAprilTag extends Command {
     @Override 
     public void execute() {
        if (LimelightHelpers.getTV("limelight")) {
-        Pose2d botPose =  LimelightHelpers.getBotPose2d("limelight");
-        double xSpeed = xController.calculate(botPose.getX());
-        double ySpeed = yController.calculate(botPose.getY());
-        double rotSpeed = rotController.calculate(botPose.getRotation().getRadians());
-        driveSubsystem.drive(xSpeed, ySpeed, rotSpeed);
+        double[] positions =  LimelightHelpers.getBotPose_TargetSpace("limelight");
+        double xSpeed = xController.calculate(positions[2]);
+        double ySpeed = -yController.calculate(positions[0]);
+        double rotSpeed = -rotController.calculate(positions[4]);
+
+        driveSubsystem.drive(xSpeed, 0, 0);         // other speeds set to 0 for PID tuning
+        
+        SmartDashboard.putNumber("X PID", xSpeed);
+        SmartDashboard.putNumber("Y PID", ySpeed);
+        SmartDashboard.putNumber("ROT PID", rotSpeed);
        }
 
        if (!atSetpoint()) {

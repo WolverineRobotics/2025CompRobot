@@ -30,7 +30,7 @@ public class Input {
     }
 
     public static Boolean alignAprilTag() {
-        return driveController.getBButton();
+        return driveController.getAButton();
     }
 
     private static double deadBand(double input, double deadBand) {

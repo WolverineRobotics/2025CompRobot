@@ -87,7 +87,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
     
     }
 
@@ -95,6 +94,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
       m_robotContainer.teleopSequence();
+
+      if (Input.driveController.getRightBumperButton()) {
+        CommandScheduler.getInstance().schedule(new AlignAprilTag(m_robotContainer.m_DriveSubsystem, true));
+      }
+
+      if (Input.driveController.getLeftBumperButton()) {
+        CommandScheduler.getInstance().schedule(new AlignAprilTag(m_robotContainer.m_DriveSubsystem, false));
+      }
+
+      SmartDashboard.putBoolean("TV?", LimelightHelpers.getTV("limelight"));
+
     }
   
   @Override
