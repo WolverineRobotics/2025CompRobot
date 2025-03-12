@@ -81,6 +81,8 @@ public final class Constants {
 
     public static final double ELEVATOR_SPEED_LIMIT = 0.5; 
 
+    public static final int ELEVATOR_CURRENT_LIMIT = 80; 
+
 
   }
 

@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
 import java.security.KeyStore.PrivateKeyEntry;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -17,10 +20,13 @@ import frc.robot.commands.DefaultElevatorCommand;
 public class ElevatorSubsystem extends SubsystemBase{
     private final SparkMax m_LeftMotor;
     private final SparkMax m_RightMotor;
+    private final SparkMaxConfig leftMotorConfig; 
+    private final SparkMaxConfig rightMotorConfig; 
     private final RelativeEncoder m_leftEncoder;
     private final RelativeEncoder m_rightEncoder;
     private final ProfiledPIDController m_Controller;
     private boolean limitSpeed; 
+ 
 
     public ElevatorSubsystem() {
         m_LeftMotor = new SparkMax(ElevatorSubsystemConst.leftElevatorMotorCAN, MotorType.kBrushless);
@@ -42,6 +48,24 @@ public class ElevatorSubsystem extends SubsystemBase{
         m_Controller.setTolerance(20);
 
         limitSpeed = false; 
+       
+        leftMotorConfig = new SparkMaxConfig(); 
+        rightMotorConfig = new SparkMaxConfig(); 
+
+        leftMotorConfig.smartCurrentLimit(
+            ElevatorSubsystemConst.ELEVATOR_CURRENT_LIMIT, 
+            ElevatorSubsystemConst.ELEVATOR_CURRENT_LIMIT, 
+            0
+        );
+
+        rightMotorConfig.smartCurrentLimit(
+            ElevatorSubsystemConst.ELEVATOR_CURRENT_LIMIT, 
+            ElevatorSubsystemConst.ELEVATOR_CURRENT_LIMIT, 
+            0
+        );
+
+        m_LeftMotor.configure(leftMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_RightMotor.configure(rightMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
     }
 
