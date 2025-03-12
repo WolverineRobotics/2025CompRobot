@@ -4,12 +4,27 @@
 
 package frc.robot;
 
+import frc.robot.Constants.DebugConst;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AlignAprilTag;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LimelightInterface;
+
+import java.io.File;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -22,6 +37,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public final DriveSubsystem m_DriveSubsystem; 
+  public final LimelightInterface m_LimelightInterface;
+  //private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+
+  // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser()
   public final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -32,6 +52,18 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    try {
+      //Creating a drivesubsystem from the config files and handling the case where they do not exist 
+      m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5);
+      m_LimelightInterface = new LimelightInterface();
+    }
+
+    catch(Exception e) {
+      throw new RuntimeException(e);
+    }
+
+    //SmartDashboard.putData(autoChooser);
+    
   }
 
   /**
@@ -60,6 +92,46 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return m_DriveSubsystem.getAutoCommand("Test Auto");
+  }
+
+  public void teleopSequence() {
+    if (Input.alignAprilTag()) {
+      new AlignAprilTag(m_DriveSubsystem, false).schedule();
+    }
+
+    if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
+      new TeleopDriveCommand(m_DriveSubsystem).schedule();
+    }
+    
+    if (Input.setL1()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L1_ENCODER_VALUE
+      );
+    }
+
+    if (Input.setL2()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L2_ENCODER_VALUE
+      ).schedule();
+    }
+
+    if (Input.setL3()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L3_ENCODER_VALUE
+      ).schedule();
+    }
+
+    if (Input.setL4()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L4_ENCODER_VALUE
+      );
+    }
+
+    SmartDashboard.putData("", CommandScheduler.getInstance());
   }
 }

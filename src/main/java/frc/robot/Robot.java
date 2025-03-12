@@ -4,10 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Input;
+import frc.robot.Constants.DebugConst;
+import frc.robot.commands.AlignAprilTag;
+import frc.robot.commands.TeleopDriveCommand;
+import swervelib.math.SwerveMath;
+import frc.robot.subsystems.LimelightInterface;
 import frc.robot.Constants.ElevatorSubsystemConst;
 import frc.robot.commands.ElevatorPresetCommand;
 
@@ -19,7 +26,9 @@ import frc.robot.commands.ElevatorPresetCommand;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+
   private final RobotContainer m_robotContainer;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -29,6 +38,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+   
   }
 
   /**
@@ -65,6 +75,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    m_robotContainer.m_DriveSubsystem.zero();
   }
 
   /** This function is called periodically during autonomous. */
@@ -89,36 +100,20 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if (Input.setL1()) {
-      new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L1_ENCODER_VALUE
-      );
-    }
-
-    if (Input.setL2()) {
-      new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L2_ENCODER_VALUE
-      ).schedule();
-    }
-
-    if (Input.setL3()) {
-      new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L3_ENCODER_VALUE
-      ).schedule();
-    }
-
-    if (Input.setL4()) {
-      new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L4_ENCODER_VALUE
-      );
-    }
+    m_robotContainer.teleopSequence();
+    
     SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
+
+      if (Input.driveController.getLeftBumperButton()) {
+        CommandScheduler.getInstance().schedule(new AlignAprilTag(m_robotContainer.m_DriveSubsystem, false));
+      }
+
+      SmartDashboard.putBoolean("TV?", LimelightHelpers.getTV("limelight"));
+
+    }
+  
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
@@ -135,5 +130,6 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically whilst in simulation. */
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+  }
 }
