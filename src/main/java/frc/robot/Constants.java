@@ -58,6 +58,8 @@ public final class Constants {
     
     public static final double DONT_SEE_TAG_WAIT_TIME = 1;
     public static final double POSE_VALIDATION_TIME = 0.3;
+
+    public static final double TELEOP_DRIVE_SPEED_LIMIT = 0.5; 
   }
 
   public static class ElevatorSubsystemConst {
@@ -76,6 +78,8 @@ public final class Constants {
     public static final double L2_ENCODER_VALUE = -427.19720458984375; 
     public static final double L3_ENCODER_VALUE = -801; 
     public static final double L4_ENCODER_VALUE = -2700; 
+
+    public static final double ELEVATOR_SPEED_LIMIT = 0.5; 
 
 
   }

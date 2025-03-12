@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Input;
-import frc.robot.Constants.DebugConst;
 import frc.robot.commands.AlignAprilTag;
 import frc.robot.commands.TeleopDriveCommand;
 import swervelib.math.SwerveMath;
@@ -101,25 +100,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.teleopSequence();
-    
-    SmartDashboard.putData(CommandScheduler.getInstance());
   }
-
-
-      if (Input.driveController.getLeftBumperButton()) {
-        CommandScheduler.getInstance().schedule(new AlignAprilTag(m_robotContainer.m_DriveSubsystem, false));
-      }
-
-      SmartDashboard.putBoolean("TV?", LimelightHelpers.getTV("limelight"));
-
-    }
   
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
-
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
@@ -133,3 +120,5 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {
   }
 }
+
+

@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+
+import java.security.KeyStore.PrivateKeyEntry;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -17,6 +20,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     private final RelativeEncoder m_leftEncoder;
     private final RelativeEncoder m_rightEncoder;
     private final ProfiledPIDController m_Controller;
+    private boolean limitSpeed; 
 
     public ElevatorSubsystem() {
         m_LeftMotor = new SparkMax(ElevatorSubsystemConst.leftElevatorMotorCAN, MotorType.kBrushless);
@@ -36,12 +40,21 @@ public class ElevatorSubsystem extends SubsystemBase{
                 ElevatorSubsystemConst.MAX_ACCELERATION));
 
         m_Controller.setTolerance(20);
+
+        limitSpeed = false; 
         
     }
 
     public void changeElevation(double speed) {
-        m_LeftMotor.set(speed);
-        m_RightMotor.set(speed);   // assume their mounted in opposite rotation
+        if (limitSpeed) {
+            m_LeftMotor.set(speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
+            m_RightMotor.set(speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
+        }
+
+        else {
+            m_LeftMotor.set(speed);
+            m_RightMotor.set(speed);
+        }
     }
 
     public void zeroEncoders() {
@@ -76,6 +89,13 @@ public class ElevatorSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
         SmartDashboard.putNumber("Right Encoder", -1*m_rightEncoder.getPosition());
 
+        if (m_leftEncoder.getPosition() > 1350) {
+            limitSpeed = true;
+        }
+
+        else {
+            limitSpeed = false; 
+        }
         
     }
 }

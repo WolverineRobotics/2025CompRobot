@@ -38,6 +38,10 @@ public class Input {
             OperatorConstants.CONTROLLER_DEADBAND
         );
     }
+
+    public static boolean toggleSpeed() {
+        return DRIVE_CONTROLLER.getAButtonPressed();
+    }
   
     public static double elevationChangeInput() {
         return OP_CONTROLLER.getRightY() * 0.1;
