@@ -3,11 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-import frc.robot.Constants.DebugConst;
+import frc.robot.Constants.ElevatorSubsystemConst;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AlignAprilTag;
 import frc.robot.commands.Autos;
+import frc.robot.commands.ElevatorPresetCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -19,6 +19,7 @@ import frc.robot.subsystems.LimelightInterface;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,7 +43,7 @@ public class RobotContainer {
   //private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
 
   // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser()
-  public final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
+  public final ElevatorSubsystem m_ElevatorSubsystem;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -61,6 +62,13 @@ public class RobotContainer {
     catch(Exception e) {
       throw new RuntimeException(e);
     }
+
+    m_ElevatorSubsystem = new ElevatorSubsystem();
+    NamedCommands.registerCommand("L4 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L4_ENCODER_VALUE));
+    NamedCommands.registerCommand("L3 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L3_ENCODER_VALUE));
+    NamedCommands.registerCommand("L2 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L2_ENCODER_VALUE));
+    NamedCommands.registerCommand("L1 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L1_ENCODER_VALUE));
+
 
     //SmartDashboard.putData(autoChooser);
     
@@ -92,42 +100,34 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_DriveSubsystem.getAutoCommand("Test Auto");
+    return m_DriveSubsystem.getAutoCommand("RP Auto");
   }
 
   public void teleopSequence() {
-    if (Input.alignAprilTag()) {
-      new AlignAprilTag(m_DriveSubsystem, false).schedule();
-    }
-
-    if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
-      new TeleopDriveCommand(m_DriveSubsystem).schedule();
-    }
-    
     if (Input.setL1()) {
       new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
+        m_ElevatorSubsystem,
         ElevatorSubsystemConst.L1_ENCODER_VALUE
       );
     }
 
     if (Input.setL2()) {
       new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
+        m_ElevatorSubsystem,
         ElevatorSubsystemConst.L2_ENCODER_VALUE
       ).schedule();
     }
 
     if (Input.setL3()) {
       new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
+        m_ElevatorSubsystem,
         ElevatorSubsystemConst.L3_ENCODER_VALUE
       ).schedule();
     }
 
     if (Input.setL4()) {
       new ElevatorPresetCommand(
-        m_robotContainer.m_ElevatorSubsystem,
+        m_ElevatorSubsystem,
         ElevatorSubsystemConst.L4_ENCODER_VALUE
       );
     }
