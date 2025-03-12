@@ -11,6 +11,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LimelightInterface;
 
@@ -39,13 +41,8 @@ public class RobotContainer {
   public final LimelightInterface m_LimelightInterface;
   //private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
 
-  // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
-
-
-  
-
-
- 
+  // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser()
+  public final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -105,6 +102,34 @@ public class RobotContainer {
 
     if (Input.driveController.getLeftX() != 0 || Input.driveController.getLeftY() != 0 || Input.driveController.getRightX() != 0) {
       new TeleopDriveCommand(m_DriveSubsystem).schedule();
+    }
+    
+    if (Input.setL1()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L1_ENCODER_VALUE
+      );
+    }
+
+    if (Input.setL2()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L2_ENCODER_VALUE
+      ).schedule();
+    }
+
+    if (Input.setL3()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L3_ENCODER_VALUE
+      ).schedule();
+    }
+
+    if (Input.setL4()) {
+      new ElevatorPresetCommand(
+        m_robotContainer.m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L4_ENCODER_VALUE
+      );
     }
 
     SmartDashboard.putData("", CommandScheduler.getInstance());

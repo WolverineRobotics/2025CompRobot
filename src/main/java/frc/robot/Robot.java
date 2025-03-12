@@ -15,6 +15,8 @@ import frc.robot.commands.AlignAprilTag;
 import frc.robot.commands.TeleopDriveCommand;
 import swervelib.math.SwerveMath;
 import frc.robot.subsystems.LimelightInterface;
+import frc.robot.Constants.ElevatorSubsystemConst;
+import frc.robot.commands.ElevatorPresetCommand;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -57,7 +59,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -87,17 +91,20 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    
-    }
+
+    m_robotContainer.m_ElevatorSubsystem.zeroEncoders();
+
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-      m_robotContainer.teleopSequence();
+    m_robotContainer.teleopSequence();
+    
+    SmartDashboard.putData(CommandScheduler.getInstance());
+  }
 
-      if (Input.driveController.getRightBumperButton()) {
-        CommandScheduler.getInstance().schedule(new AlignAprilTag(m_robotContainer.m_DriveSubsystem, true));
-      }
 
       if (Input.driveController.getLeftBumperButton()) {
         CommandScheduler.getInstance().schedule(new AlignAprilTag(m_robotContainer.m_DriveSubsystem, false));

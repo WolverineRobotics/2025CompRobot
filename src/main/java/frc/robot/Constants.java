@@ -26,14 +26,11 @@ public final class Constants {
     //You can add variables in here so later in the code numbers are referenced as, for example:
     // Constants.ExampleSubsystem.leftMotorCAN;
 
-    public static final int leftMotorCAN = 1;
-    public static final int righttMotorCAN = 2;
+    // public static final int leftMotorCAN = 21;
+    // public static final int righttMotorCAN = 22;
     public static final int encoderDIO = 0;
   }
-  public static class DebugConst {
-  public static final Pose2d DEBUG_POSE2D = new Pose2d(100, 100, new Rotation2d(Math.PI));
 
-  } 
   public static class DriveConst {
     //X pids 
     public static final double X_TRANSLATION_P = 0.1;
@@ -61,6 +58,26 @@ public final class Constants {
     
     public static final double DONT_SEE_TAG_WAIT_TIME = 1;
     public static final double POSE_VALIDATION_TIME = 0.3;
+  }
+
+  public static class ElevatorSubsystemConst {
+
+    public static final int leftElevatorMotorCAN = 21;
+    public static final int rightElevatorMotorCAN = 22;
+
+    public static final double kP = 0.0201;
+    public static final double kI = 0; 
+    public static final double kD = 0.002125; 
+
+    public static final double MAX_SPEED = 1; 
+    public static final double MAX_ACCELERATION = 0.5;
+
+    public static final double L1_ENCODER_VALUE = 0; 
+    public static final double L2_ENCODER_VALUE = -427.19720458984375; 
+    public static final double L3_ENCODER_VALUE = -801; 
+    public static final double L4_ENCODER_VALUE = -2700; 
+
+
   }
 
 }
