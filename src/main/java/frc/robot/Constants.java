@@ -34,12 +34,14 @@ public final class Constants {
 
   public static class IntakeConstants {
         // Intake Constants
-        public static final int kIntakeMotorCANID = 31;
-        public static final int kLimitSwitchPort = 0;
+        public static final int INTAKE_MOTOR_CAN_ID = 31;
+        public static final int LIMIT_SWITCH_PORT = 0;
 
         //Speed Constants 
-        public static final double intakeSpeed = 0.1;
-        public static final double outtakeSpeed = 0.3;
+        public static final double INTAKE_SPEED = 0.1;
+        public static final double OUTTAKE_SPEED = 0.3;
+
+        public static final int CURRENT_LIMIT = 40; 
   }
 
   public static class DriveConst {
@@ -75,8 +77,10 @@ public final class Constants {
 
   public static class ElevatorSubsystemConst {
 
-    public static final int leftElevatorMotorCAN = 21;
-    public static final int rightElevatorMotorCAN = 22;
+    public static final int LEFT_ELEVATOR_CAN = 21;
+    public static final int RIGHT_ELEVATOR_CAN = 22;
+
+    public static final double ELEVATOR_CONVERTION_FACTOR = (2700 / 61);
 
     public static final double kP = 0.0201;
     public static final double kI = 0; 
@@ -86,15 +90,13 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 0.5;
 
     public static final double L1_ENCODER_VALUE = 0; 
-    public static final double L2_ENCODER_VALUE = -427.19720458984375; 
-    public static final double L3_ENCODER_VALUE = -801; 
-    public static final double L4_ENCODER_VALUE = -2700; 
+    public static final double L2_ENCODER_VALUE = -(9.64 * ELEVATOR_CONVERTION_FACTOR);
+    public static final double L3_ENCODER_VALUE = -(18.1 * ELEVATOR_CONVERTION_FACTOR); 
+    public static final double L4_ENCODER_VALUE = -(61 * ELEVATOR_CONVERTION_FACTOR); 
 
     public static final double ELEVATOR_SPEED_LIMIT = 0.5; 
 
-    public static final int ELEVATOR_CURRENT_LIMIT = 80; 
-
-
+    public static final int ELEVATOR_CURRENT_LIMIT = 40; 
   }
 
 }

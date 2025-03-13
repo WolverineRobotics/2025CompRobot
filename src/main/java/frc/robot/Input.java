@@ -1,3 +1,4 @@
+package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OperatorConstants;
@@ -62,10 +63,10 @@ public class Input {
     }
   
     public static boolean getShoot() {
-        return OP_CONTROLLER.getAButton();
+        return OP_CONTROLLER.getLeftBumperButton();
     }
 
     public static boolean getIntake() {
-        return OP_CONTROLLER.getBButton();
+        return OP_CONTROLLER.getRightBumperButton();
     }
 }

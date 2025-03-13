@@ -13,24 +13,24 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-    private final SparkMax powerMotor = new SparkMax(IntakeConstants.kIntakeMotorCANID, MotorType.kBrushless);
+    private final SparkMax powerMotor = new SparkMax(IntakeConstants.INTAKE_MOTOR_CAN_ID, MotorType.kBrushless);
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
-    private final DigitalInput limitSwitch = new DigitalInput(IntakeConstants.kLimitSwitchPort);
+    private final DigitalInput limitSwitch = new DigitalInput(IntakeConstants.LIMIT_SWITCH_PORT);
 
     public IntakeSubsystem() {
-        motorConfig.secondaryCurrentLimit(40);
+        motorConfig.secondaryCurrentLimit(IntakeConstants.CURRENT_LIMIT);
         powerMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
     
     public void storeCoral() {
         if (!limitSwitch.get()) {
-            powerMotor.set(IntakeConstants.intakeSpeed);
+            powerMotor.set(IntakeConstants.INTAKE_SPEED);
         }
         powerMotor.set(0);
     }
 
     public void shoot() {
-        powerMotor.set(IntakeConstants.outtakeSpeed);
+        powerMotor.set(IntakeConstants.OUTTAKE_SPEED);
     }
 
     public boolean hasGamepiece() {

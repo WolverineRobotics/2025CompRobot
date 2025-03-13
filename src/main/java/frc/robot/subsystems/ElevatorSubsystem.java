@@ -29,8 +29,8 @@ public class ElevatorSubsystem extends SubsystemBase{
  
 
     public ElevatorSubsystem() {
-        m_LeftMotor = new SparkMax(ElevatorSubsystemConst.leftElevatorMotorCAN, MotorType.kBrushless);
-        m_RightMotor = new SparkMax(ElevatorSubsystemConst.rightElevatorMotorCAN, MotorType.kBrushless);
+        m_LeftMotor = new SparkMax(ElevatorSubsystemConst.LEFT_ELEVATOR_CAN, MotorType.kBrushless);
+        m_RightMotor = new SparkMax(ElevatorSubsystemConst.RIGHT_ELEVATOR_CAN, MotorType.kBrushless);
 
         m_leftEncoder = m_LeftMotor.getEncoder();
         m_rightEncoder = m_RightMotor.getEncoder();
