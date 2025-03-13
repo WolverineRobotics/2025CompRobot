@@ -24,13 +24,13 @@ public class IntakeSubsystem extends SubsystemBase {
     
     public void storeCoral() {
         if (!limitSwitch.get()) {
-            powerMotor.set(1);
+            powerMotor.set(IntakeConstants.intakeSpeed);
         }
         powerMotor.set(0);
     }
 
     public void shoot() {
-        powerMotor.set(1);
+        powerMotor.set(IntakeConstants.outtakeSpeed);
     }
 
     public boolean hasGamepiece() {

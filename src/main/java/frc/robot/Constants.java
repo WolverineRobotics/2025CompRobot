@@ -32,5 +32,9 @@ public final class Constants {
         // Intake Constants
         public static final int kIntakeMotorCANID = 31;
         public static final int kLimitSwitchPort = 0;
+
+        //Speed Constants 
+        public static final double intakeSpeed = 0.1;
+        public static final double outtakeSpeed = 0.3;
   }
 }
