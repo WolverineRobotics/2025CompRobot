@@ -29,6 +29,17 @@ public final class Constants {
     // public static final int leftMotorCAN = 21;
     // public static final int righttMotorCAN = 22;
     public static final int encoderDIO = 0;
+
+  }
+
+  public static class IntakeConstants {
+        // Intake Constants
+        public static final int kIntakeMotorCANID = 31;
+        public static final int kLimitSwitchPort = 0;
+
+        //Speed Constants 
+        public static final double intakeSpeed = 0.1;
+        public static final double outtakeSpeed = 0.3;
   }
 
   public static class DriveConst {
