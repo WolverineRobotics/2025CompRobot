@@ -3,7 +3,7 @@
     "front": -14,
     "left": -14
   },
-  "absoluteEncoderOffset": 272,
+  "absoluteEncoderOffset": 22.8,
   "comment": "abs Encoder needs to be changed",
   "drive": {
     "type": "sparkmax_neo",
