@@ -28,7 +28,7 @@ public class ShootCommand extends Command {
 
     @Override 
     public boolean isFinished() {
-        return false;
+        return !intake.hasGamepiece();
     }
 
 }

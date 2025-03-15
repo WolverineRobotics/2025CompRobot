@@ -97,7 +97,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_DriveSubsystem.getAutoCommand("RP Auto");
+    return m_DriveSubsystem.getAutoCommand("Test Auto");
   }
 
   public void teleopSequence() {

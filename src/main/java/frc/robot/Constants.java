@@ -42,6 +42,10 @@ public final class Constants {
         public static final double OUTTAKE_SPEED = 0.3;
 
         public static final int CURRENT_LIMIT = 40; 
+
+        //Encoder Constants 
+        public static final double INTAKE_STOP_POINT = 100; 
+        public static final double ENCODER_TOLERENCE = 10; 
   }
 
   public static class DriveConst {

@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -14,12 +15,15 @@ import frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
 
     private final SparkMax powerMotor = new SparkMax(IntakeConstants.INTAKE_MOTOR_CAN_ID, MotorType.kBrushless);
+    private final RelativeEncoder motorEncoder; 
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
     private final DigitalInput limitSwitch = new DigitalInput(IntakeConstants.LIMIT_SWITCH_PORT);
 
     public IntakeSubsystem() {
         motorConfig.secondaryCurrentLimit(IntakeConstants.CURRENT_LIMIT);
         powerMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        motorEncoder = powerMotor.getEncoder();
     }
     
     public void storeCoral() {
@@ -40,5 +44,6 @@ public class IntakeSubsystem extends SubsystemBase {
     @Override 
     public void periodic() {
         SmartDashboard.putBoolean("Coral", hasGamepiece());
+        SmartDashboard.putNumber("Intake Encoder", motorEncoder.getPosition());
     }
 }
