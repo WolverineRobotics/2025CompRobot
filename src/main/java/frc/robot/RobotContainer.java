@@ -62,7 +62,7 @@ public class RobotContainer {
     
     try {
       //Creating a drivesubsystem from the config files and handling the case where they do not exist 
-      m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5);
+      m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5); 
       m_LimelightInterface = new LimelightInterface();
     }
 
@@ -101,33 +101,33 @@ public class RobotContainer {
   }
 
   public void teleopSequence() {
-    if (Input.setL1()) {
-      new ElevatorPresetCommand(
-        m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L1_ENCODER_VALUE
-      );
-    }
+    // if (Input.setL1()) {
+    //   new ElevatorPresetCommand(
+    //     m_ElevatorSubsystem,
+    //     ElevatorSubsystemConst.L1_ENCODER_VALUE
+    //   );
+    // }
 
-    if (Input.setL2()) {
-      new ElevatorPresetCommand(
-        m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L2_ENCODER_VALUE
-      ).schedule();
-    }
+    // if (Input.setL2()) {
+    //   new ElevatorPresetCommand(
+    //     m_ElevatorSubsystem,
+    //     ElevatorSubsystemConst.L2_ENCODER_VALUE
+    //   ).schedule();
+    // }
 
-    if (Input.setL3()) {
-      new ElevatorPresetCommand(
-        m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L3_ENCODER_VALUE
-      ).schedule();
-    }
+    // if (Input.setL3()) {
+    //   new ElevatorPresetCommand(
+    //     m_ElevatorSubsystem,
+    //     ElevatorSubsystemConst.L3_ENCODER_VALUE
+    //   ).schedule();
+    // }
 
-    if (Input.setL4()) {
-      new ElevatorPresetCommand(
-        m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L4_ENCODER_VALUE
-      );
-    }
+    // if (Input.setL4()) {
+    //   new ElevatorPresetCommand(
+    //     m_ElevatorSubsystem,
+    //     ElevatorSubsystemConst.L4_ENCODER_VALUE
+    //   );
+    // }
 
     if (Input.toggleSpeed()) {
       m_DriveSubsystem.toggleLimit();

@@ -39,6 +39,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override 
     public void periodic() {
-        SmartDashboard.putBoolean("Coral", this.hasGamepiece());
+        SmartDashboard.putBoolean("Coral", hasGamepiece());
     }
 }

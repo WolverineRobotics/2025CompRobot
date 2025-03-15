@@ -58,6 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase{
             0
         );
 
+
         rightMotorConfig.smartCurrentLimit(
             ElevatorSubsystemConst.ELEVATOR_CURRENT_LIMIT, 
             ElevatorSubsystemConst.ELEVATOR_CURRENT_LIMIT, 
@@ -76,7 +77,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         }
 
         else {
-            m_LeftMotor.set(speed);
+            m_LeftMotor.set(-speed);
             m_RightMotor.set(speed);
         }
     }
@@ -113,7 +114,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
         SmartDashboard.putNumber("Right Encoder", -1*m_rightEncoder.getPosition());
 
-        if (m_leftEncoder.getPosition() > 1350) {
+        if (m_leftEncoder.getPosition() < -1350) {
             limitSpeed = true;
         }
 
