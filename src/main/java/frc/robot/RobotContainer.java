@@ -141,6 +141,10 @@ public class RobotContainer {
       new ShootCommand(m_IntakeSubsystem).schedule();
     }
 
+    if (Input.zeroGyro()) {
+      m_DriveSubsystem.zero();
+    }
+
     SmartDashboard.putData("", CommandScheduler.getInstance());
   }
 }

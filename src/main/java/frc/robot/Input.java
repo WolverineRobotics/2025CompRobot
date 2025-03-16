@@ -69,4 +69,8 @@ public class Input {
     public static boolean getIntake() {
         return OP_CONTROLLER.getRightBumperButton();
     }
+
+    public static boolean zeroGyro() {
+        return DRIVE_CONTROLLER.getAButtonPressed();
+    }
 }
