@@ -71,7 +71,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     }
 
     public void changeElevation(double speed) {
-        if (limitSpeed) {
+        if (limitSpeed) { 
             m_LeftMotor.set(speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
             m_RightMotor.set(speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
         }

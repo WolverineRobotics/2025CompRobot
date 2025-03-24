@@ -71,6 +71,6 @@ public class Input {
     }
 
     public static boolean zeroGyro() {
-        return DRIVE_CONTROLLER.getAButtonPressed();
+        return DRIVE_CONTROLLER.getLeftStickButton();
     }
 }

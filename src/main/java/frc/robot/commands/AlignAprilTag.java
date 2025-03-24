@@ -76,7 +76,7 @@ public class AlignAprilTag extends Command {
         double ySpeed = -yController.calculate(positions[0]);
         double rotSpeed = -rotController.calculate(positions[4]);
 
-        driveSubsystem.drive(xSpeed, 0, 0);         // other speeds set to 0 for PID tuning
+        driveSubsystem.drive(xSpeed, ySpeed, rotSpeed);         // other speeds set to 0 for PID tuning
         
         SmartDashboard.putNumber("X PID", xSpeed);
         SmartDashboard.putNumber("Y PID", ySpeed);

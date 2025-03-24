@@ -47,9 +47,8 @@ public class RobotContainer {
 
   public final DriveSubsystem m_DriveSubsystem; 
   public final LimelightInterface m_LimelightInterface;
-  //private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
 
-  // private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser()
+
   public final ElevatorSubsystem m_ElevatorSubsystem;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -76,8 +75,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("L2 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L2_ENCODER_VALUE));
     NamedCommands.registerCommand("L1 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L1_ENCODER_VALUE));
 
-
-    //SmartDashboard.putData(autoChooser);
     
   }
 
@@ -97,37 +94,37 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_DriveSubsystem.getAutoCommand("");
+    return m_DriveSubsystem.getAutoCommand("Test Auto Red");
   }
 
   public void teleopSequence() {
-    // if (Input.setL1()) {
-    //   new ElevatorPresetCommand(
-    //     m_ElevatorSubsystem,
-    //     ElevatorSubsystemConst.L1_ENCODER_VALUE
-    //   );
-    // }
+    if (Input.setL1()) {
+      new ElevatorPresetCommand(
+        m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L1_ENCODER_VALUE
+      );
+    }
 
-    // if (Input.setL2()) {
-    //   new ElevatorPresetCommand(
-    //     m_ElevatorSubsystem,
-    //     ElevatorSubsystemConst.L2_ENCODER_VALUE
-    //   ).schedule();
-    // }
+    if (Input.setL2()) {
+      new ElevatorPresetCommand(
+        m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L2_ENCODER_VALUE
+      ).schedule();
+    }
 
-    // if (Input.setL3()) {
-    //   new ElevatorPresetCommand(
-    //     m_ElevatorSubsystem,
-    //     ElevatorSubsystemConst.L3_ENCODER_VALUE
-    //   ).schedule();
-    // }
+    if (Input.setL3()) {
+      new ElevatorPresetCommand(
+        m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L3_ENCODER_VALUE
+      ).schedule();
+    }
 
-    // if (Input.setL4()) {
-    //   new ElevatorPresetCommand(
-    //     m_ElevatorSubsystem,
-    //     ElevatorSubsystemConst.L4_ENCODER_VALUE
-    //   );
-    // }
+    if (Input.setL4()) {
+      new ElevatorPresetCommand(
+        m_ElevatorSubsystem,
+        ElevatorSubsystemConst.L4_ENCODER_VALUE
+      );
+    }
 
     if (Input.toggleSpeed()) {
       m_DriveSubsystem.toggleLimit();

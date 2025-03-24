@@ -38,14 +38,14 @@ public final class Constants {
         public static final int LIMIT_SWITCH_PORT = 0;
 
         //Speed Constants 
-        public static final double INTAKE_SPEED = 0.1;
-        public static final double OUTTAKE_SPEED = 0.3;
+        public static final double INTAKE_SPEED = 0.5;
+        public static final double OUTTAKE_SPEED = 1.0;
 
         public static final int CURRENT_LIMIT = 40; 
 
         //Encoder Constants 
-        public static final double INTAKE_STOP_POINT = 100; 
-        public static final double ENCODER_TOLERENCE = 10; 
+        public static final double INTAKE_STOP_POINT = 0.9; 
+        public static final double ENCODER_TOLERENCE = 0.15; 
   }
 
   public static class DriveConst {
@@ -94,9 +94,9 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 0.5;
 
     public static final double L1_ENCODER_VALUE = 0; 
-    public static final double L2_ENCODER_VALUE = -(9.64 * ELEVATOR_CONVERTION_FACTOR);
-    public static final double L3_ENCODER_VALUE = -(18.1 * ELEVATOR_CONVERTION_FACTOR); 
-    public static final double L4_ENCODER_VALUE = -(61 * ELEVATOR_CONVERTION_FACTOR); 
+    public static final double L2_ENCODER_VALUE = (9.64 * ELEVATOR_CONVERTION_FACTOR);
+    public static final double L3_ENCODER_VALUE = (18.1 * ELEVATOR_CONVERTION_FACTOR); 
+    public static final double L4_ENCODER_VALUE = (61 * ELEVATOR_CONVERTION_FACTOR); 
 
     public static final double ELEVATOR_SPEED_LIMIT = 0.5; 
 
