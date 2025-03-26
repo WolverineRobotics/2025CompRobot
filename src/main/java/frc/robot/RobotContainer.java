@@ -112,19 +112,19 @@ public class RobotContainer {
       ).schedule();
     }
 
-    if (Input.setL3()) {
-      new ElevatorPresetCommand(
-        m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L3_ENCODER_VALUE
-      ).schedule();
-    }
+    // if (Input.setL3()) {
+    //   new ElevatorPresetCommand(
+    //     m_ElevatorSubsystem,
+    //     ElevatorSubsystemConst.L3_ENCODER_VALUE
+    //   ).schedule();
+    // }
 
-    if (Input.setL4()) {
-      new ElevatorPresetCommand(
-        m_ElevatorSubsystem,
-        ElevatorSubsystemConst.L4_ENCODER_VALUE
-      );
-    }
+    // if (Input.setL4()) {
+    //   new ElevatorPresetCommand(
+    //     m_ElevatorSubsystem,
+    //     ElevatorSubsystemConst.L4_ENCODER_VALUE
+    //   );
+    // }
 
     if (Input.toggleSpeed()) {
       m_DriveSubsystem.toggleLimit();

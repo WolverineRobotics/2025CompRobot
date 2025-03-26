@@ -12,6 +12,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorSubsystemConst;
@@ -25,6 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     private final RelativeEncoder m_leftEncoder;
     private final RelativeEncoder m_rightEncoder;
     private final ProfiledPIDController m_Controller;
+    private final DigitalInput limitSwitch; 
     private boolean limitSpeed; 
  
 
@@ -45,9 +47,10 @@ public class ElevatorSubsystem extends SubsystemBase{
                 ElevatorSubsystemConst.MAX_SPEED, 
                 ElevatorSubsystemConst.MAX_ACCELERATION));
 
-        m_Controller.setTolerance(20);
+        m_Controller.setTolerance(0.5);
 
         limitSpeed = false; 
+        limitSwitch = new DigitalInput(ElevatorSubsystemConst.limitSwitchPort);
        
         leftMotorConfig = new SparkMaxConfig(); 
         rightMotorConfig = new SparkMaxConfig(); 
@@ -65,21 +68,32 @@ public class ElevatorSubsystem extends SubsystemBase{
             0
         );
 
+        rightMotorConfig.follow(ElevatorSubsystemConst.LEFT_ELEVATOR_CAN, true);
         m_LeftMotor.configure(leftMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         m_RightMotor.configure(rightMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
     }
 
     public void changeElevation(double speed) {
-        if (limitSpeed) { 
-            m_LeftMotor.set(speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
-            m_RightMotor.set(speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
+        if (atBottom() && -speed < 0) {
+            m_LeftMotor.set(0);
+        }
+        else {
+            if (limitSpeed) { 
+                m_LeftMotor.set(-speed * ElevatorSubsystemConst.ELEVATOR_SPEED_LIMIT);
+                
+            }
+    
+            else {
+                m_LeftMotor.set(-speed);
+                
+            }
         }
 
-        else {
-            m_LeftMotor.set(-speed);
-            m_RightMotor.set(speed);
-        }
+    }
+    
+    public boolean atBottom() {
+        return !limitSwitch.get();
     }
 
     public void zeroEncoders() {
@@ -89,8 +103,14 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     public void elevationPreset(double speed, double setpoint) {
         m_Controller.setGoal(setpoint);
-        if (!m_Controller.atGoal()){
-            m_LeftMotor.set(speed);
+        if (!m_Controller.atGoal()) {
+            if (atBottom() && -speed < 0) {
+                m_LeftMotor.set(0);
+            }
+            else {
+                m_LeftMotor.set(speed);
+            }
+            
         }
 
     }
@@ -112,14 +132,20 @@ public class ElevatorSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Left Motor", m_LeftMotor.get());
         SmartDashboard.putNumber("Right Motor", m_LeftMotor.get());
         SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
-        SmartDashboard.putNumber("Right Encoder", -1*m_rightEncoder.getPosition());
+        SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+        SmartDashboard.putNumber("Setpoint", m_Controller.getGoal().position);
+        SmartDashboard.putBoolean("???", m_Controller.atSetpoint());
 
-        if (m_leftEncoder.getPosition() < -1350) {
+        if (m_leftEncoder.getPosition() > 40) {
             limitSpeed = true;
         }
 
         else {
             limitSpeed = false; 
+        }
+
+        if (atBottom()) {
+            zeroEncoders();
         }
         
     }

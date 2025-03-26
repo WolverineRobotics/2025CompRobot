@@ -84,17 +84,18 @@ public final class Constants {
     public static final int LEFT_ELEVATOR_CAN = 21;
     public static final int RIGHT_ELEVATOR_CAN = 22;
 
+    public static final int limitSwitchPort = 1;
+
     public static final double ELEVATOR_CONVERTION_FACTOR = (2700 / 61);
 
-    public static final double kP = 0.0201;
+    public static final double kP = 0.04;
     public static final double kI = 0; 
-    public static final double kD = 0.002125; 
-
-    public static final double MAX_SPEED = 1; 
-    public static final double MAX_ACCELERATION = 0.5;
+    public static final double kD = 0; //0.002125; 
+    public static final double MAX_SPEED = 0.25; 
+    public static final double MAX_ACCELERATION = 0.125;
 
     public static final double L1_ENCODER_VALUE = 0; 
-    public static final double L2_ENCODER_VALUE = (9.64 * ELEVATOR_CONVERTION_FACTOR);
+    public static final double L2_ENCODER_VALUE = 40;
     public static final double L3_ENCODER_VALUE = (18.1 * ELEVATOR_CONVERTION_FACTOR); 
     public static final double L4_ENCODER_VALUE = (61 * ELEVATOR_CONVERTION_FACTOR); 
 
