@@ -38,7 +38,7 @@ public final class Constants {
         public static final int LIMIT_SWITCH_PORT = 0;
 
         //Speed Constants 
-        public static final double INTAKE_SPEED = 0.5;
+        public static final double INTAKE_SPEED = 0.3;
         public static final double OUTTAKE_SPEED = 1.0;
 
         public static final int CURRENT_LIMIT = 40; 

@@ -43,7 +43,7 @@ public class Input {
     }
   
     public static double elevationChangeInput() {
-        return OP_CONTROLLER.getRightY() * 0.1;
+        return OP_CONTROLLER.getRightY() * 0.5;
     } 
 
     public static boolean setL4() {

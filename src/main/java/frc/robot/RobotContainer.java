@@ -8,9 +8,9 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AlignAprilTag;
 
 import frc.robot.commands.ElevatorPresetCommand;
-
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.AutoShootCommand;
 
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -74,6 +74,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("L3 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L3_ENCODER_VALUE));
     NamedCommands.registerCommand("L2 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L2_ENCODER_VALUE));
     NamedCommands.registerCommand("L1 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L1_ENCODER_VALUE));
+    NamedCommands.registerCommand("Auto Shoot", new AutoShootCommand(m_IntakeSubsystem));
 
     
   }

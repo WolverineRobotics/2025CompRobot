@@ -15,6 +15,12 @@
           "data": {
             "pathName": "Reef Path Blue"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Shoot"
+          }
         }
       ]
     }

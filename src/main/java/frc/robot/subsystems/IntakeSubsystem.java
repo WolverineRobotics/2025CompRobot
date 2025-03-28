@@ -21,6 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public IntakeSubsystem() {
         motorConfig.secondaryCurrentLimit(IntakeConstants.CURRENT_LIMIT);
+        motorConfig.inverted(true);
         powerMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         motorEncoder = powerMotor.getEncoder();
