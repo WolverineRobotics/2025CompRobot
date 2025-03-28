@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Input;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class ShootCommand extends Command {
@@ -28,7 +29,7 @@ public class ShootCommand extends Command {
 
     @Override 
     public boolean isFinished() {
-        return !intake.hasGamepiece();
+        return !intake.hasGamepiece() || Input.endShootCommand();
     }
 
 }

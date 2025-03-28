@@ -95,7 +95,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_DriveSubsystem.getAutoCommand("Test Auto Red");
+    return m_DriveSubsystem.getAutoCommand("");
   }
 
   public void teleopSequence() {
@@ -141,6 +141,10 @@ public class RobotContainer {
 
     if (Input.zeroGyro()) {
       m_DriveSubsystem.zero();
+    }
+
+    if (Input.getIntakeSpeed() != 0) {
+      m_IntakeSubsystem.setSpeed(Input.getIntakeSpeed());
     }
 
     SmartDashboard.putData("", CommandScheduler.getInstance());

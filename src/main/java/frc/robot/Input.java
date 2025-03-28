@@ -73,4 +73,15 @@ public class Input {
     public static boolean zeroGyro() {
         return DRIVE_CONTROLLER.getLeftStickButton();
     }
+
+    public static double getIntakeSpeed() {
+        return OP_CONTROLLER.getLeftTriggerAxis();
+    }
+
+    public static boolean endIntakeCommand() {
+        return OP_CONTROLLER.getRightBumperButtonReleased();
+    }
+    public static boolean endShootCommand() {
+        return OP_CONTROLLER.getLeftBumperButtonReleased();
+    }
 }
