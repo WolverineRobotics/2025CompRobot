@@ -1,0 +1,28 @@
+{
+  "location": {
+    "front": -14,
+    "left": 14
+  },
+  "absoluteEncoderOffset": 244.72, 
+  "comment": "abs Encoder needs to be changed",
+  "drive": {
+    "type": "sparkmax_neo",
+    "id": 16,
+    "canbus": null
+  },
+  "angle": {
+    "type": "sparkmax_neo",
+    "id": 15,
+    "canbus": null
+  },
+  "encoder": {
+    "type": "thrifty",
+    "id": 1,
+    "canbus": null
+  },
+  "inverted": {
+    "drive": true,
+    "angle": true
+  },
+  "absoluteEncoderInverted": false
+}
