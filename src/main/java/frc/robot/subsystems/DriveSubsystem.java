@@ -75,6 +75,15 @@ public class DriveSubsystem extends SubsystemBase {
                
         }
 
+    public void lockWheels() {
+        // swerveDrive.getModules()[0].setAngle(45);
+        // swerveDrive.getModules()[1].setAngle(135);
+        // swerveDrive.getModules()[2].setAngle(225);
+        // swerveDrive.getModules()[3].setAngle(315);
+
+        swerveDrive.lockPose();
+    }
+
     public double getMaxSpeed() {
         return swerveDrive.getMaximumChassisVelocity();
     }

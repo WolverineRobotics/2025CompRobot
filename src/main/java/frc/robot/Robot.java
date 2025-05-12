@@ -80,8 +80,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    m_robotContainer.m_DriveSubsystem.zero();
-    m_robotContainer.m_DriveSubsystem.drive(-0.5, 0, 0);
+    // m_robotContainer.m_DriveSubsystem.zero();
+    // m_robotContainer.m_DriveSubsystem.drive(-0.5, 0, 0);
   }
 
   /** This function is called periodically during autonomous. */

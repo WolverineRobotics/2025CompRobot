@@ -3,12 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import frc.robot.Constants.AutoConst;
 import frc.robot.Constants.ElevatorSubsystemConst;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AlignAprilTag;
 
 import frc.robot.commands.ElevatorPresetCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.LockWheelsCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.AutoShootCommand;
 
@@ -26,12 +28,16 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -45,8 +51,10 @@ public class RobotContainer {
 
   public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
-  public final DriveSubsystem m_DriveSubsystem; 
+  //public final DriveSubsystem m_DriveSubsystem; 
   public final LimelightInterface m_LimelightInterface;
+
+  private final SendableChooser<String> m_Chooser; 
 
 
   public final ElevatorSubsystem m_ElevatorSubsystem;
@@ -61,13 +69,18 @@ public class RobotContainer {
     
     try {
       //Creating a drivesubsystem from the config files and handling the case where they do not exist 
-      m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5); 
+      // m_DriveSubsystem = new DriveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"), 5); 
       m_LimelightInterface = new LimelightInterface();
     }
 
     catch(Exception e) {
       throw new RuntimeException(e);
     }
+    
+    m_Chooser = new SendableChooser<>();
+    m_Chooser.addOption("Basline Red", AutoConst.BASELINE_RED);
+    m_Chooser.addOption("Basline Blue", AutoConst.BASELINE_BLUE);
+    SmartDashboard.putData("Autos", m_Chooser);
 
     m_ElevatorSubsystem = new ElevatorSubsystem();
     NamedCommands.registerCommand("L4 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L4_ENCODER_VALUE));
@@ -75,9 +88,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("L2 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L2_ENCODER_VALUE));
     NamedCommands.registerCommand("L1 Preset", new ElevatorPresetCommand(m_ElevatorSubsystem, ElevatorSubsystemConst.L1_ENCODER_VALUE));
     NamedCommands.registerCommand("Auto Shoot", new AutoShootCommand(m_IntakeSubsystem));
-
-    
+   
+   
   }
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -95,7 +109,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_DriveSubsystem.getAutoCommand("");
+    // return m_DriveSubsystem.getAutoCommand("Test Auto Blue");
+    return new Command() {
+      
+    };
   }
 
   public void teleopSequence() {
@@ -127,9 +144,9 @@ public class RobotContainer {
     //   );
     // }
 
-    if (Input.toggleSpeed()) {
-      m_DriveSubsystem.toggleLimit();
-    }
+    // if (Input.toggleSpeed()) {
+    //   m_DriveSubsystem.toggleLimit();
+    // }
 
     if (Input.getIntake()) {
       new IntakeCommand(m_IntakeSubsystem).schedule();
@@ -139,13 +156,17 @@ public class RobotContainer {
       new ShootCommand(m_IntakeSubsystem).schedule();
     }
 
-    if (Input.zeroGyro()) {
-      m_DriveSubsystem.zero();
-    }
+    // if (Input.zeroGyro()) {
+    //   m_DriveSubsystem.zero();
+    // }
 
     if (Input.getIntakeSpeed() != 0) {
       m_IntakeSubsystem.setSpeed(Input.getIntakeSpeed());
     }
+
+    // if (Input.getLockWheels()) {
+    //   new LockWheelsCommand(m_DriveSubsystem).schedule();
+    // }
 
     SmartDashboard.putData("", CommandScheduler.getInstance());
   }

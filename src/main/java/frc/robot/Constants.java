@@ -104,4 +104,9 @@ public final class Constants {
     public static final int ELEVATOR_CURRENT_LIMIT = 40; 
   }
   
+  public static class AutoConst {
+    public static final String BASELINE_RED = "Test Auto Red";
+    public static final String BASELINE_BLUE = "Test Auto Blue";
+    
+  }
 }

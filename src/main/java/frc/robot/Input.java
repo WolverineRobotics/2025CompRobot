@@ -5,7 +5,7 @@ import frc.robot.Constants.OperatorConstants;
 
 // A class to get input from the controller effectivlly 
 public class Input {
-    private static XboxController DRIVE_CONTROLLER = new XboxController(0);
+    public static XboxController DRIVE_CONTROLLER = new XboxController(0);
     private final static XboxController OP_CONTROLLER = new XboxController(1);
   
   
@@ -83,5 +83,9 @@ public class Input {
     }
     public static boolean endShootCommand() {
         return OP_CONTROLLER.getLeftBumperButtonReleased();
+    }
+
+    public static boolean getLockWheels() {
+        return DRIVE_CONTROLLER.getAButton();
     }
 }
